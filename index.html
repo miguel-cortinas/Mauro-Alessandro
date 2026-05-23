@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Cumpleaños de Mauro Alessandro</title>
+  <meta name="description"
+    content="Estás invitado al cumpleaños de Mauro Alessandro, 13 de junio de 2026 en Granja Gutiérrez.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ─────────────────────────────────────────
+       CUSTOM FONT
+    ───────────────────────────────────────── */
+    @font-face {
+      font-family: 'LithosBlack';
+      src: url('fonts/tercera-lithosBlack/lithosblack.otf') format('opentype');
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─────────────────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --gold: #C9960A;
+      --gold-light: #E8B84B;
+      --gold-pale: #F5DEB3;
+      --gold-bright: #FFD060;
+      --orange: #B94A18;
+      --orange-mid: #D4652B;
+      --burnt: #7A2E08;
+      --savanna: #2C1500;
+      --night: #130900;
+      --sand: #F0D9B5;
+      --sand-dim: rgba(240, 217, 181, 0.7);
+
+      --section-dark: #1A0900;
+      --section-orange: #5C2200;
+      --section-mid: #2E1100;
+
+      --font-title: 'LithosBlack', 'Cinzel', serif;
+      --font-body: 'EB Garamond', Georgia, serif;
+
+      --radius: 16px;
+      --radius-lg: 28px;
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ─────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--night);
+      color: var(--sand);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img,
+    video,
+    iframe {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLL PROGRESS
+    ───────────────────────────────────────── */
+    #prog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--orange-mid), var(--gold));
+      z-index: 9999;
+    }
+
+    /* ─────────────────────────────────────────
+       REVEAL
+    ───────────────────────────────────────── */
+    .rv {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    }
+
+    .rv.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .rv.d1 {
+      transition-delay: 0.08s;
+    }
+
+    .rv.d2 {
+      transition-delay: 0.16s;
+    }
+
+    .rv.d3 {
+      transition-delay: 0.24s;
+    }
+
+    .rv.d4 {
+      transition-delay: 0.32s;
+    }
+
+    .rv.d5 {
+      transition-delay: 0.40s;
+    }
+
+    /* ─────────────────────────────────────────
+       WAVE DIVIDERS  (SVG inline, reusable)
+    ───────────────────────────────────────── */
+    .wave {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .wave svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─────────────────────────────────────────
+       ORNAMENT LINE
+    ───────────────────────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 20px auto;
+    }
+
+    .ornament-line {
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .ornament-icon {
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION CORE
+    ───────────────────────────────────────── */
+    .sec {
+      position: relative;
+      padding: 64px 24px 0;
+    }
+
+    .sec-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+      padding-bottom: 64px;
+    }
+
+    .label {
+      font-family: var(--font-title);
+      font-size: 0.58rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-family: var(--font-title);
+      font-size: clamp(1.9rem, 8vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: 0.04em;
+      color: var(--gold-light);
+      text-shadow: 0 2px 24px rgba(200, 150, 10, 0.35);
+    }
+
+    .body-text {
+      font-size: clamp(1rem, 4.5vw, 1.15rem);
+      line-height: 1.95;
+      color: var(--sand-dim);
+      font-style: italic;
+    }
+
+    .body-text strong {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--sand);
+    }
+
+    #s-invite .body-text {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--sand);
+    }
+
+    #s-invite .body-text strong {
+      color: var(--gold-light);
+    }
+
+    /* ─────────────────────────────────────────
+       ██  HERO
+    ───────────────────────────────────────── */
+    #hero {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: var(--night);
+    }
+
+    /* Image at natural portrait proportions — no crop, no zoom */
+    .hero-img-wrap {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+    }
+
+    .hero-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Fade bottom edge into page background */
+    .hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 22%;
+      background: linear-gradient(to bottom, transparent, var(--night));
+      pointer-events: none;
+    }
+
+    /* ── SVG SIGN OVERLAY ──
+       simba2.jpg sign area (736×1308 source):
+         horizontal : x=35–701  →  5%–95% of width
+         vertical   : y=100–355 →  7.6%–27.1% of image height
+       We position here and let the SVG fill the width.
+       The name sits inside the SVG shape via an absolute layer.  */
+    .hero-sign-wrap {
+      position: absolute;
+      z-index: 10;
+      top: 9%;
+      left: 2%;
+      right: 2%;
+      pointer-events: none;
+    }
+
+    /* The SVG sign shape — scales with viewport width */
+    .sign-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      /* subtle drop shadow to lift sign off image */
+      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
+    }
+
+    .sign-text-layer {
+      position: absolute;
+      inset: 0;
+      /* The arch bump occupies the top ~28% of the SVG viewBox (30/105).
+         Offset text down to center in the rectangular body below it. */
+      padding-top: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 12%;
+    }
+
+    .sign-name {
+      font-family: var(--font-title);
+      font-size: clamp(1.4rem, 8.5vw, 3.8rem);
+      line-height: 1.0;
+      letter-spacing: 0.04em;
+      text-align: center;
+      color: #FFE07A;
+      text-shadow:
+        0 1px 0 rgba(40, 6, 0, 0.95),
+        0 3px 12px rgba(0, 0, 0, 0.7),
+        0 0 18px rgba(255, 190, 30, 0.28);
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.4s forwards;
+    }
+
+    /* Tagline — above the sign */
+    .hero-tagline {
+      position: absolute;
+      z-index: 10;
+      /* Place tagline at the very top */
+      top: 3%;
+      left: 0;
+      right: 0;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.7s forwards;
+    }
+
+    .hero-tagline span {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: clamp(0.78rem, 3.6vw, 0.98rem);
+      color: rgba(240, 217, 181, 0.88);
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+      background: rgba(19, 9, 0, 0.42);
+      padding: 5px 18px;
+      border-radius: 30px;
+    }
+
+    /* Scroll caret at the bottom of the hero */
+    .hero-caret {
+      position: absolute;
+      z-index: 10;
+      bottom: 3%;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 1.0s forwards;
+    }
+
+    .hero-caret-label {
+      font-family: var(--font-title);
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      color: rgba(200, 150, 10, 0.6);
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .caret-arrow {
+      width: 16px;
+      height: 16px;
+      border-right: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(45deg);
+      animation: caretBounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes caretBounce {
+
+      0%,
+      100% {
+        transform: rotate(45deg) translateY(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: rotate(45deg) translateY(5px);
+        opacity: 0.35;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       ██  SECTION 2 — INVITACIÓN
+       bg: dark → orange wave top
+    ───────────────────────────────────────── */
+    #s-invite {
+      background: var(--section-orange);
+    }
+
+    .glass-block {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(200, 150, 10, 0.22);
+      border-radius: var(--radius-lg);
+      padding: 40px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, rgba(200, 150, 10, 0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────
+       ██  SECTION 3 — DETALLES
+       bg: night (between orange waves)
+    ───────────────────────────────────────── */
+    #s-details {
+      background: var(--section-dark);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .tile {
+      background: rgba(200, 150, 10, 0.07);
+      border: 1px solid rgba(200, 150, 10, 0.2);
+      border-radius: var(--radius);
+      padding: 28px 16px 24px;
+      text-align: center;
+    }
+
+    .tile-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      width: 44px;
+      height: 44px;
+    }
+
+    .tile-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tile-lbl {
+      font-family: var(--font-title);
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .tile-val {
+      font-family: var(--font-body);
+      font-size: clamp(0.9rem, 4vw, 1rem);
+      color: var(--sand);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ─────────────────────────────────────────
+       ██  SECTION 4 — CUENTA REGRESIVA
+       bg: orange mid
+    ───────────────────────────────────────── */
+    #s-countdown {
+      background: var(--section-orange);
+    }
+
+    .cd-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: clamp(6px, 3vw, 16px);
+      margin-top: 40px;
+      flex-wrap: nowrap;
+    }
+
+    .cd-unit {
+      text-align: center;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cd-face {
+      background: linear-gradient(170deg, rgba(200, 150, 10, 0.18) 0%, rgba(26, 9, 0, 0.9) 100%);
+      border: 1px solid rgba(200, 150, 10, 0.3);
+      border-radius: var(--radius);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(200, 150, 10, 0.18);
+    }
+
+    .cd-face::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    }
+
+    .cd-num {
+      font-family: var(--font-title);
+      font-size: clamp(1.5rem, 8vw, 2.6rem);
+      color: var(--gold-bright);
+      text-shadow: 0 0 20px rgba(220, 180, 30, 0.55);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cd-sep {
+      font-family: var(--font-title);
+      font-size: clamp(1.5rem, 7vw, 2.2rem);
+      color: var(--gold);
+      padding-top: clamp(10px, 3vw, 18px);
+      animation: blink 1s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.15
+      }
+    }
+
+    .cd-lbl {
+      font-family: var(--font-title);
+      font-size: clamp(0.45rem, 2vw, 0.58rem);
+      letter-spacing: 0.18em;
+      color: rgba(200, 150, 10, 0.65);
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .cd-msg {
+      margin-top: 32px;
+      font-family: var(--font-title);
+      font-size: clamp(0.75rem, 3.5vw, 0.95rem);
+      letter-spacing: 0.1em;
+      color: var(--gold-pale);
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────
+       ██  SECTION 5 — REGALOS
+       bg: dark
+    ───────────────────────────────────────── */
+    #s-gifts {
+      background: var(--section-dark);
+    }
+
+    .gifts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .gift-tile {
+      background: rgba(200, 150, 10, 0.06);
+      border: 1px solid rgba(200, 150, 10, 0.2);
+      border-radius: var(--radius);
+      padding: 28px 12px 22px;
+      text-align: center;
+    }
+
+    .gift-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gift-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .gift-name {
+      font-family: var(--font-title);
+      font-size: clamp(0.6rem, 2.8vw, 0.75rem);
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+      line-height: 1.4;
+    }
+
+    .gift-desc {
+      font-size: clamp(0.72rem, 3vw, 0.82rem);
+      color: rgba(240, 217, 181, 0.45);
+      font-style: italic;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .note-block {
+      margin-top: 24px;
+      padding: 20px 22px;
+      border: 1px solid rgba(200, 150, 10, 0.2);
+      border-radius: var(--radius);
+      background: rgba(200, 150, 10, 0.05);
+      font-size: clamp(0.88rem, 3.8vw, 1rem);
+      color: rgba(240, 217, 181, 0.65);
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .note-block strong {
+      color: var(--gold-light);
+      font-style: normal;
+    }
+
+    /* ─────────────────────────────────────────
+       ██  SECTION 6 — UBICACIÓN
+       bg: orange
+    ───────────────────────────────────────── */
+    #s-map {
+      background: var(--section-orange);
+    }
+
+    .addr-line {
+      font-family: var(--font-title);
+      font-size: clamp(0.6rem, 3vw, 0.75rem);
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin: 0 0 24px;
+    }
+
+    .map-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(200, 150, 10, 0.3);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.65);
+      margin-bottom: 24px;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+    }
+
+    .maps-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--orange) 100%);
+      color: var(--night);
+      font-family: var(--font-title);
+      font-size: clamp(0.62rem, 3vw, 0.78rem);
+      letter-spacing: 0.22em;
+      font-weight: 900;
+      padding: 18px 28px;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(180, 90, 10, 0.4);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .maps-btn svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       ██  SECTION 7 — CONFIRMACIÓN
+       bg: dark
+    ───────────────────────────────────────── */
+    #s-confirm {
+      background: var(--section-dark);
+    }
+
+    .confirm-block {
+      background: rgba(37, 200, 100, 0.05);
+      border: 1px solid rgba(37, 200, 100, 0.18);
+      border-radius: var(--radius-lg);
+      padding: 44px 28px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confirm-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(37, 200, 100, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .confirm-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    .confirm-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    @keyframes iconFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: #fff;
+      font-family: var(--font-title);
+      font-size: clamp(0.62rem, 3vw, 0.78rem);
+      letter-spacing: 0.2em;
+      padding: 18px 28px;
+      border-radius: 50px;
+      box-shadow: 0 8px 32px rgba(18, 140, 126, 0.4);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .wa-btn svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .wa-note {
+      margin-top: 14px;
+      font-size: clamp(0.78rem, 3.5vw, 0.88rem);
+      color: rgba(240, 217, 181, 0.35);
+      font-style: italic;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background: var(--night);
+      text-align: center;
+      padding: 56px 24px 52px;
+      border-top: 1px solid rgba(200, 150, 10, 0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .footer-name {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 9vw, 2.8rem);
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      background: linear-gradient(135deg, var(--gold-light), var(--orange-mid));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .footer-sub {
+      font-size: clamp(0.8rem, 3.5vw, 0.92rem);
+      color: rgba(240, 217, 181, 0.3);
+      font-style: italic;
+      letter-spacing: 0.06em;
+      line-height: 1.8;
+    }
+
+
+
+    /* ─────────────────────────────────────────
+       CANVAS CONFETTI
+    ───────────────────────────────────────── */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 9990;
+      pointer-events: none;
+      display: none;
+    }
+
+    /* ─────────────────────────────────────────
+       MEDIA — just typography tweaks for tablet
+    ───────────────────────────────────────── */
+    @media (min-width: 480px) {
+      .gifts-grid {
+        gap: 16px;
+      }
+
+      .details-grid {
+        gap: 16px;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .sec-inner {
+        padding-bottom: 80px;
+      }
+
+      .sec {
+        padding-top: 72px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="prog"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+
+  <!-- ══════════════════════════════════════════
+       HERO — SIMBA IMAGE + SVG SIGN OVERLAY
+  ══════════════════════════════════════════ -->
+  <section id="hero">
+
+    <!-- Image at full natural portrait proportions (736×1308) — no crop -->
+    <div class="hero-img-wrap">
+      <img src="img/simba2.jpg" alt="Simba, Timón y Pumba celebrando el cumpleaños de Mauro Alessandro" loading="eager"
+        decoding="async">
+    </div>
+
+    <!-- SVG SIGN OVERLAY
+         Covers the printed sign in simba2.jpg.
+         The SVG shape replicates the sign's distinctive arch bump.
+         HTML text is layered on top for full LithosBlack font support. -->
+    <div class="hero-sign-wrap">
+      <!-- Sign shape: viewBox 340×105; bump occupies top ~28% (y=0–30) -->
+      <svg class="sign-svg" viewBox="0 0 340 105" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true">
+        <!-- FILL: maroon body matching sign in image -->
+        <path d="M28,30 L144,30 C147,22 151,14 157,8 C161,3 165,1 170,1
+             C175,1 179,3 183,8 C189,14 193,22 196,30 L312,30
+             Q322,30 322,40 L322,98 Q322,105 312,105
+             L28,105 Q18,105 18,98 L18,40 Q18,30 28,30 Z" fill="#6A1209" />
+        <!-- OUTER BORDER: gold frame -->
+        <path d="M28,30 L144,30 C147,22 151,14 157,8 C161,3 165,1 170,1
+             C175,1 179,3 183,8 C189,14 193,22 196,30 L312,30
+             Q322,30 322,40 L322,98 Q322,105 312,105
+             L28,105 Q18,105 18,98 L18,40 Q18,30 28,30 Z" fill="none" stroke="#C9960A" stroke-width="4" />
+        <!-- INNER BORDER: thin inset line -->
+        <path d="M34,37 L148,37 C151,30 154,23 159,17 C163,12 167,10 170,10
+             C173,10 177,12 181,17 C186,23 189,30 192,37 L306,37
+             Q313,37 313,44 L313,93 Q313,99 306,99
+             L34,99 Q27,99 27,93 L27,44 Q27,37 34,37 Z" fill="none" stroke="#E8B84B" stroke-width="1.5"
+          opacity="0.45" />
+        <!-- SUBTLE CORNER ORNAMENTS -->
+        <circle cx="27" cy="37" r="3" fill="#C9960A" opacity="0.5" />
+        <circle cx="313" cy="37" r="3" fill="#C9960A" opacity="0.5" />
+        <circle cx="313" cy="99" r="3" fill="#C9960A" opacity="0.5" />
+        <circle cx="27" cy="99" r="3" fill="#C9960A" opacity="0.5" />
+      </svg>
+
+      <!-- Name text rendered over the SVG shape -->
+      <div class="sign-text-layer">
+        <h1 class="sign-name">Mauro<br>Alessandro</h1>
+      </div>
+    </div>
+
+    <!-- Tagline: below sign, above the characters -->
+    <div class="hero-tagline">
+      <span>Un pequeño rey que llena de alegría nuestra manada</span>
+    </div>
+
+    <!-- Scroll caret -->
+    <div class="hero-caret">
+      <span class="hero-caret-label">DESLIZA</span>
+      <div class="caret-arrow"></div>
+    </div>
+
+  </section>
+
+  <!-- WAVE: dark → orange -->
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 C360,80 1080,80 1440,0 L1440,80 L0,80 Z" fill="#5C2200" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 2 — INVITACIÓN
+  ══════════════════════════════════════════ -->
+  <section id="s-invite" class="sec">
+    <div class="sec-inner">
+
+      <p class="label rv">· Mensaje especial ·</p>
+      <h2 class="title rv d1">Estás Invitado</h2>
+
+      <div class="ornament rv d2">
+        <span class="ornament-line"></span>
+        <span class="ornament-icon">
+          <!-- SVG paw print ornament -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="5" cy="6" rx="2" ry="3" fill="#C9960A" opacity="0.9" />
+            <ellipse cx="10" cy="3" rx="2" ry="3" fill="#C9960A" opacity="0.9" />
+            <ellipse cx="15" cy="3" rx="2" ry="3" fill="#C9960A" opacity="0.9" />
+            <ellipse cx="19.5" cy="6" rx="2" ry="3" fill="#C9960A" opacity="0.9" />
+            <path d="M12 9C8.5 9 5 12 5 15.5C5 18.5 7.5 21 12 21C16.5 21 19 18.5 19 15.5C19 12 15.5 9 12 9Z"
+              fill="#C9960A" opacity="0.9" />
+          </svg>
+        </span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="glass-block rv d3">
+        <p class="body-text">
+          En las tierras de la Sabana, donde el sol siempre brilla
+          y el viento susurra historias de amor y aventura,
+          un pequeño rey está por celebrar su gran día.<br><br>
+          <strong>Mauro Alessandro</strong> llena nuestros corazones de maravilla,
+          y queremos que <strong>tú</strong> seas parte de este momento
+          que nunca olvidaremos.<br><br>
+          Como en el Círculo de la Vida, la familia y los amigos
+          son el regalo más grande.
+          <strong>Te esperamos con los brazos abiertos.</strong>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WAVE: orange → dark -->
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 C360,0 1080,0 1440,80 L1440,0 L0,0 Z" fill="#5C2200" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 3 — DETALLES
+  ══════════════════════════════════════════ -->
+  <section id="s-details" class="sec">
+    <div class="sec-inner">
+
+      <p class="label rv">· El gran día ·</p>
+      <h2 class="title rv d1">Detalles del Evento</h2>
+
+      <div class="ornament rv d2">
+        <span class="ornament-line"></span>
+        <!-- SVG sun ornament -->
+        <span class="ornament-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5" fill="#C9960A" opacity="0.9" />
+            <g stroke="#C9960A" stroke-width="1.5" stroke-linecap="round" opacity="0.7">
+              <line x1="12" y1="2" x2="12" y2="5" />
+              <line x1="12" y1="19" x2="12" y2="22" />
+              <line x1="2" y1="12" x2="5" y2="12" />
+              <line x1="19" y1="12" x2="22" y2="12" />
+              <line x1="4.9" y1="4.9" x2="7" y2="7" />
+              <line x1="17" y1="17" x2="19.1" y2="19.1" />
+              <line x1="19.1" y1="4.9" x2="17" y2="7" />
+              <line x1="7" y1="17" x2="4.9" y2="19.1" />
+            </g>
+          </svg>
+        </span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="details-grid">
+        <!-- DATE -->
+        <div class="tile rv d1">
+          <div class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="4" width="18" height="18" rx="3" stroke="#C9960A" stroke-width="1.5" />
+              <path d="M3 9h18" stroke="#C9960A" stroke-width="1.5" />
+              <path d="M8 2v4M16 2v4" stroke="#C9960A" stroke-width="1.5" stroke-linecap="round" />
+              <rect x="7" y="13" width="3" height="3" rx="0.5" fill="#C9960A" opacity="0.7" />
+              <rect x="14" y="13" width="3" height="3" rx="0.5" fill="#C9960A" opacity="0.7" />
+            </svg>
+          </div>
+          <div class="tile-lbl">Fecha</div>
+          <div class="tile-val">Sábado<br>13 de Junio<br>2026</div>
+        </div>
+
+        <!-- TIME -->
+        <div class="tile rv d2">
+          <div class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="#C9960A" stroke-width="1.5" />
+              <path d="M12 7v5l3 3" stroke="#C9960A" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="tile-lbl">Hora</div>
+          <div class="tile-val">4:00 PM</div>
+        </div>
+
+        <!-- PLACE -->
+        <div class="tile rv d3">
+          <div class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9C3 5.686 6.134 3 12 3s9 2.686 9 6c0 4.5-6 12-9 12S3 13.5 3 9Z" stroke="#C9960A"
+                stroke-width="1.5" />
+              <circle cx="12" cy="9" r="2.5" fill="#C9960A" opacity="0.7" />
+            </svg>
+          </div>
+          <div class="tile-lbl">Lugar</div>
+          <div class="tile-val">Granja<br>Gutiérrez</div>
+        </div>
+
+        <!-- ADDRESS -->
+        <div class="tile rv d4">
+          <div class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6h16M4 10h16M4 14h10M4 18h8" stroke="#C9960A" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="tile-lbl">Dirección</div>
+          <div class="tile-val">C.91 y 23<br>Col. Aereopuerto</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WAVE: dark → orange (double curve) -->
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 C240,90 480,0 720,60 C960,120 1200,0 1440,60 L1440,90 L0,90 Z" fill="#5C2200" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 4 — CUENTA REGRESIVA
+  ══════════════════════════════════════════ -->
+  <section id="s-countdown" class="sec">
+    <div class="sec-inner">
+
+      <p class="label rv">· Tiempo restante ·</p>
+      <h2 class="title rv d1">Cuenta Regresiva</h2>
+
+      <div class="ornament rv d2">
+        <span class="ornament-line"></span>
+        <span class="ornament-icon">
+          <!-- Hourglass SVG -->
+          <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="18" height="20" rx="2" stroke="#C9960A" stroke-width="1.5" />
+            <path d="M4 3h12L10 10 4 3Z" fill="#C9960A" opacity="0.7" />
+            <path d="M4 19h12L10 12 4 19Z" fill="#C9960A" opacity="0.35" />
+            <line x1="4" y1="10.5" x2="16" y2="10.5" stroke="#C9960A" stroke-width="1" opacity="0.4" />
+          </svg>
+        </span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="cd-row rv d3">
+        <div class="cd-unit">
+          <div class="cd-face"><span class="cd-num" id="cd-d">--</span></div>
+          <div class="cd-lbl">Días</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-face"><span class="cd-num" id="cd-h">--</span></div>
+          <div class="cd-lbl">Horas</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-face"><span class="cd-num" id="cd-m">--</span></div>
+          <div class="cd-lbl">Min</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit">
+          <div class="cd-face"><span class="cd-num" id="cd-s">--</span></div>
+          <div class="cd-lbl">Seg</div>
+        </div>
+      </div>
+
+      <p class="cd-msg rv d4" id="cd-msg">Preparate para celebrar en la Sabana</p>
+
+    </div>
+  </section>
+
+  <!-- WAVE: orange → dark -->
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 C360,0 1080,0 1440,80 L1440,0 L0,0 Z" fill="#5C2200" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 5 — REGALOS
+  ══════════════════════════════════════════ -->
+  <section id="s-gifts" class="sec">
+    <div class="sec-inner">
+
+      <p class="label rv">· Con cariño ·</p>
+      <h2 class="title rv d1">Mesa de Regalos</h2>
+
+      <div class="ornament rv d2">
+        <span class="ornament-line"></span>
+        <span class="ornament-icon">
+          <!-- Gift box SVG -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="10" width="20" height="12" rx="1.5" stroke="#C9960A" stroke-width="1.5" />
+            <rect x="6" y="6" width="12" height="4" rx="1" stroke="#C9960A" stroke-width="1.5" />
+            <line x1="12" y1="6" x2="12" y2="22" stroke="#C9960A" stroke-width="1.5" />
+            <path d="M12 6C12 6 9 2 7 4s1 2 5 2Z" fill="#C9960A" opacity="0.7" />
+            <path d="M12 6C12 6 15 2 17 4s-1 2-5 2Z" fill="#C9960A" opacity="0.7" />
+          </svg>
+        </span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="gifts-grid">
+        <!-- MISCELÁNEA -->
+        <div class="gift-tile rv d1">
+          <div class="gift-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="7" height="7" rx="1" stroke="#E8B84B" stroke-width="1.5" />
+              <rect x="14" y="3" width="7" height="7" rx="1" stroke="#E8B84B" stroke-width="1.5" />
+              <rect x="3" y="14" width="7" height="7" rx="1" stroke="#E8B84B" stroke-width="1.5" />
+              <rect x="14" y="14" width="7" height="7" rx="1" stroke="#E8B84B" stroke-width="1.5" />
+            </svg>
+          </div>
+          <div class="gift-name">Miscelánea</div>
+          <div class="gift-desc">Artículos varios</div>
+        </div>
+
+        <!-- PAÑALES -->
+        <div class="gift-tile rv d2">
+          <div class="gift-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8C3 8 6 10 12 10C18 10 21 8 21 8L19 17C19 18.1 18.1 19 17 19H7C5.9 19 5 18.1 5 17L3 8Z"
+                stroke="#E8B84B" stroke-width="1.5" stroke-linejoin="round" />
+              <path d="M3 8C3 8 7 7 12 7C17 7 21 8 21 8" stroke="#E8B84B" stroke-width="1.5" />
+              <path d="M9 13.5C9 12.7 10.3 12 12 12C13.7 12 15 12.7 15 13.5" stroke="#E8B84B" stroke-width="1.2"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="gift-name">Pañales</div>
+          <div class="gift-desc">Cualquier talla</div>
+        </div>
+
+        <!-- TOALLITAS -->
+        <div class="gift-tile rv d3">
+          <div class="gift-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="5" width="14" height="16" rx="2" stroke="#E8B84B" stroke-width="1.5" />
+              <path d="M17 8h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2" stroke="#E8B84B" stroke-width="1.5" />
+              <path d="M7 10h6M7 13h6M7 16h4" stroke="#E8B84B" stroke-width="1.2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="gift-name">Toallitas</div>
+          <div class="gift-desc">Para bebé</div>
+        </div>
+      </div>
+
+      <div class="note-block rv d4">
+        <strong>Tu presencia es el mejor regalo.</strong><br>
+        Si deseas contribuir, estas opciones son muy útiles para Mauro Alessandro y su familia.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WAVE: dark → orange (triple curve) -->
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C180,0 360,90 540,30 C720,-30 900,90 1080,30 C1260,-30 1380,60 1440,30 L1440,90 L0,90 Z"
+        fill="#5C2200" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 6 — UBICACIÓN
+  ══════════════════════════════════════════ -->
+  <section id="s-map" class="sec">
+    <div class="sec-inner">
+
+      <p class="label rv">· Cómo llegar ·</p>
+      <h2 class="title rv d1">Ubicación</h2>
+
+      <div class="ornament rv d2">
+        <span class="ornament-line"></span>
+        <span class="ornament-icon">
+          <svg width="20" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z" stroke="#C9960A"
+              stroke-width="1.5" />
+            <circle cx="12" cy="9" r="2.5" fill="#C9960A" opacity="0.7" />
+          </svg>
+        </span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <p class="addr-line rv d3">Granja Gutiérrez &nbsp;&bull;&nbsp; C.91 y 23, Col. Aereopuerto</p>
+
+      <div class="map-wrap rv d4">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.0!2d-89.6!3d21.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDAwJzAwLjAiTiA4OcKwMzYnMDAuMCJX!5e0!3m2!1ses!2smx!4v1234567890!5m2!1ses!2smx"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Granja Gutiérrez, C.91 y 23, Col. Aereopuerto">
+        </iframe>
+      </div>
+
+      <a href="https://maps.app.goo.gl/JYNCN9J2Q4SzB7vk8" target="_blank" rel="noopener noreferrer"
+        class="maps-btn rv d5" id="btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+        </svg>
+        ABRIR EN GOOGLE MAPS
+      </a>
+
+    </div>
+  </section>
+
+  <!-- WAVE: orange → dark -->
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 C480,0 960,0 1440,80 L1440,0 L0,0 Z" fill="#5C2200" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       SECTION 7 — CONFIRMACIÓN
+  ══════════════════════════════════════════ -->
+  <section id="s-confirm" class="sec">
+    <div class="sec-inner">
+
+      <p class="label rv">· Antes de venir ·</p>
+      <h2 class="title rv d1">Confirma tu Asistencia</h2>
+
+      <div class="ornament rv d2">
+        <span class="ornament-line"></span>
+        <span class="ornament-icon">
+          <!-- Lion SVG silhouette simplified -->
+          <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="13" cy="11" rx="8" ry="6" fill="#C9960A" opacity="0.25" />
+            <ellipse cx="13" cy="10" rx="5" ry="4.5" fill="#C9960A" opacity="0.6" />
+            <circle cx="13" cy="9" r="3" fill="#C9960A" opacity="0.9" />
+            <path d="M10 13 Q13 16 16 13" stroke="#C9960A" stroke-width="1.2" stroke-linecap="round" fill="none"
+              opacity="0.6" />
+            <path d="M5 8 Q2 6 3 4" stroke="#C9960A" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+            <path d="M21 8 Q24 6 23 4" stroke="#C9960A" stroke-width="1.2" stroke-linecap="round" opacity="0.5" />
+          </svg>
+        </span>
+        <span class="ornament-line"></span>
+      </div>
+
+      <div class="confirm-block rv d3">
+
+        <div class="confirm-icon">
+          <!-- WhatsApp style icon in gold -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="31" stroke="#C9960A" stroke-width="1.5" opacity="0.3" />
+            <path
+              d="M32 16C23.2 16 16 23.2 16 32c0 2.8.74 5.43 2.04 7.7L16 48l8.54-2.04A15.92 15.92 0 0 0 32 48c8.8 0 16-7.2 16-16S40.8 16 32 16Z"
+              fill="#C9960A" opacity="0.15" />
+            <path
+              d="M40.5 36.8c-.4-.2-2.36-1.16-2.72-1.3-.36-.14-.63-.2-.9.2-.27.4-1.03 1.3-1.26 1.56-.23.27-.47.3-.87.1s-1.68-.62-3.2-1.98c-1.18-1.05-1.98-2.35-2.21-2.75-.23-.4-.02-.61.17-.81.18-.18.4-.47.6-.7.2-.23.26-.4.4-.67.13-.27.07-.5-.04-.7-.1-.2-.9-2.16-1.22-2.96-.32-.78-.65-.67-.9-.68l-.76-.02c-.27 0-.7.1-1.06.5-.37.4-1.4 1.36-1.4 3.32 0 1.96 1.43 3.86 1.63 4.12.2.27 2.8 4.28 6.8 5.99 4 1.7 4 1.14 4.72 1.07.72-.07 2.32-.95 2.65-1.86.33-.9.33-1.68.23-1.84-.1-.17-.36-.27-.76-.47Z"
+              fill="#C9960A" />
+          </svg>
+        </div>
+
+        <h3 class="title" style="font-size: clamp(1.4rem,7vw,2.2rem); margin-bottom:14px;" class="rv">
+          ¿Vienes a celebrar?
+        </h3>
+
+        <p class="body-text rv" style="margin-bottom:32px; font-size: clamp(0.95rem,4vw,1.05rem);">
+          Para organizarnos y preparar la mejor fiesta de la Sabana,
+          por favor confírmanos tu asistencia lo antes posible.
+        </p>
+
+        <a href="https://wa.me/?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Mauro%20Alessandro%20el%2013%20de%20junio%20de%202026%20en%20Granja%20Guti%C3%A9rrez%20a%20las%204%3A00%20PM."
+          target="_blank" rel="noopener noreferrer" class="wa-btn" id="btn-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.014-1.376l-.36-.213-3.754.984.993-3.671-.234-.375A9.818 9.818 0 112 12c0 5.42 4.398 9.818 9.818 9.818H12v.001z" />
+          </svg>
+          CONFIRMAR POR WHATSAPP
+        </a>
+
+        <p class="wa-note">Se abrirá WhatsApp con un mensaje listo para enviar</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINAL WAVE before footer -->
+  <div class="wave" style="background: var(--section-dark);" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#130900" />
+    </svg>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-name">Mauro Alessandro</div>
+    <p class="footer-sub">
+      Con amor &nbsp;&bull;&nbsp; 13 de Junio 2026<br>
+      <br>
+      <img src="img/footer.png" alt="Simba de Rey León" style="max-width: 140px; height: auto; margin: 0 auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+    </p>
+
+
+  </footer>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ══════════════════════════════════════════
+       JAVASCRIPT
+  ══════════════════════════════════════════ -->
+  <script>
+    'use strict';
+
+    /* ── SCROLL PROGRESS ── */
+    const prog = document.getElementById('prog');
+    window.addEventListener('scroll', function () {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      prog.style.width = pct + '%';
+    }, { passive: true });
+
+    /* ── INTERSECTION REVEAL ── */
+    const rvEls = document.querySelectorAll('.rv');
+    const rvObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); }
+      });
+    }, { threshold: 0.1 });
+    rvEls.forEach(function (el) { rvObs.observe(el); });
+
+    /* ── COUNTDOWN ── */
+    const EVENT = new Date('2026-06-13T16:00:00');
+    var cdD = document.getElementById('cd-d');
+    var cdH = document.getElementById('cd-h');
+    var cdM = document.getElementById('cd-m');
+    var cdS = document.getElementById('cd-s');
+    var cdMsg = document.getElementById('cd-msg');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      var diff = EVENT - Date.now();
+      if (diff <= 0) {
+        cdD.textContent = cdH.textContent = cdM.textContent = cdS.textContent = '00';
+        cdMsg.textContent = 'HOY ES EL GRAN DIA — HAKUNA MATATA';
+        startConfetti();
+        return;
+      }
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor(diff % 86400000 / 3600000);
+      var m = Math.floor(diff % 3600000 / 60000);
+      var s = Math.floor(diff % 60000 / 1000);
+      cdD.textContent = pad(d);
+      cdH.textContent = pad(h);
+      cdM.textContent = pad(m);
+      cdS.textContent = pad(s);
+
+      if (d === 0 && h < 2) {
+        cdMsg.textContent = 'Ya casi comienza — prepara los abrazos';
+      } else if (d < 7) {
+        cdMsg.textContent = 'Falta poquito — el Rey Leon te espera';
+      } else if (d < 30) {
+        cdMsg.textContent = 'Preparate para celebrar en la Sabana';
+      } else {
+        cdMsg.textContent = 'Guarda la fecha y preparate para celebrar';
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    /* ── CONFETTI (gold palette) ── */
+    function startConfetti() {
+      var canvas = document.getElementById('confetti-canvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.display = 'block';
+
+      var cols = ['#D4A017', '#F5C842', '#B94A18', '#FDE68A', '#E07B39', '#FFFFFF', '#C9960A'];
+      var pieces = [];
+      for (var i = 0; i < 100; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          w: Math.random() * 11 + 4,
+          h: Math.random() * 5 + 3,
+          col: cols[Math.floor(Math.random() * cols.length)],
+          rot: Math.random() * 360,
+          vx: (Math.random() - 0.5) * 2.5,
+          vy: Math.random() * 3.5 + 1.5,
+          vr: (Math.random() - 0.5) * 7,
+          life: 0
+        });
+      }
+
+      var frame = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(function (p) {
+          p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life++;
+          var alpha = Math.min(1, (300 - p.life) / 60);
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot * Math.PI / 180);
+          ctx.globalAlpha = Math.max(0, alpha * 0.85);
+          ctx.fillStyle = p.col;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        frame++;
+        if (frame < 300) requestAnimationFrame(draw);
+        else { canvas.style.display = 'none'; }
+      }
+      draw();
+    }
+  </script>
+
+</body>
+
+</html>
