@@ -1977,26 +1977,17 @@
           night.style.opacity = breath.toFixed(3);
         }
 
-        // 3. Image continues brightening beyond where dawn left it
-        //    reaching overexposed warmth, then the whole overlay fades
-        if (entBg) {
-          var bT = clamp(raw / 0.85, 0, 1);
-          var br = lerp(1, 2.2, easeOut(bT));   // beyond 1 = overexposed glow
-          var sat = lerp(1, 1.6, easeOut(bT));   // warmer saturation
-          entBg.style.filter = 'brightness(' + br.toFixed(3) + ') saturate(' + sat.toFixed(3) + ')';
-        }
-
-        // 4. Dawn light grows taller and brighter
+        // 3. Dawn light grows to cover screen
         if (dawn) {
-          var dT = clamp(raw / 0.90, 0, 1);
+          var dT = clamp(raw / 0.70, 0, 1);
           dawn.style.height = lerp(72, 100, easeOut(dT)).toFixed(1) + '%';
-          dawn.style.opacity = lerp(1, 1.4, easeOut(dT)).toFixed(3);
         }
 
-        // 5. Whole overlay fades out — starts late so light does the work first
-        if (raw >= 0.55) {
-          var oT = clamp((raw - 0.55) / 0.45, 0, 1);
-          entranceOverlay.style.opacity = (1 - easeOut(oT)).toFixed(3);
+        // 4. Everything fades together as one — overlay, image, dawn, all in sync
+        if (raw >= 0.30) {
+          var oT = clamp((raw - 0.30) / 0.70, 0, 1);
+          var opacity = (1 - easeOut(oT)).toFixed(3);
+          entranceOverlay.style.opacity = opacity;
         }
 
         if (raw < 1) {
