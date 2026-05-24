@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baby Shower de Mauro Alessandro · El Rey León</title>
+  <title>Baby Shower de Mauro Alessandro</title>
   <meta name="description"
     content="El ciclo de la vida nos regala su mayor milagro. Acompáñanos a celebrar la pronta llegada de Mauro Alessandro.">
 
@@ -1215,7 +1215,7 @@
     <!-- Dawn light -->
     <div class="ent-dawn" id="ent-dawn"></div>
 
-    
+
 
     <!-- Acacia trees silhouette -->
     <!-- Content -->
@@ -2020,7 +2020,7 @@
     if (mpBubble && bgAudio) {
       mpBubble.addEventListener('click', () => {
         if (bgAudio.paused) {
-          bgAudio.play().then(() => updateMusicUI(true)).catch(() => {});
+          bgAudio.play().then(() => updateMusicUI(true)).catch(() => { });
         } else {
           bgAudio.pause();
           updateMusicUI(false);
