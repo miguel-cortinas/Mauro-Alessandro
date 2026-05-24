@@ -271,66 +271,60 @@
       pointer-events: none;
     }
 
-    /* ── SVG SIGN OVERLAY ──
-       simba2.jpg sign area (736×1308 source):
-         horizontal : x=35–701  →  5%–95% of width
-         vertical   : y=100–355 →  7.6%–27.1% of image height
-       We position here and let the SVG fill the width.
-       The name sits inside the SVG shape via an absolute layer.  */
-    .hero-sign-wrap {
+    /* ── HERO NAME — pure typography with sun glow ── */
+    .hero-name-wrap {
       position: absolute;
       z-index: 10;
-      top: 9%;
-      left: 2%;
-      right: 2%;
-      pointer-events: none;
-    }
-
-    /* The SVG sign shape — scales with viewport width */
-    .sign-svg {
-      width: 100%;
-      height: auto;
-      display: block;
-      /* subtle drop shadow to lift sign off image */
-      filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
-    }
-
-    .sign-text-layer {
-      position: absolute;
-      inset: 0;
-      /* The arch bump occupies the top ~28% of the SVG viewBox (30/105).
-         Offset text down to center in the rectangular body below it. */
-      padding-top: 20%;
+      top: 8%;
+      left: 0;
+      right: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding-bottom: 12%;
-    }
-
-    .sign-name {
-      font-family: var(--font-title);
-      font-size: clamp(1.8rem, 9vw, 4.2rem);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      text-align: center;
-      color: #FFD280;
-      mix-blend-mode: hard-light;
+      pointer-events: none;
       opacity: 0;
-      text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.6);
-      transform: rotate(-2deg);
-      animation: signFade 1.2s var(--ease-out) 0.5s forwards;
+      animation: heroNameIn 1.6s var(--ease-out) 0.4s forwards;
     }
 
-    @keyframes signFade {
+    @keyframes heroNameIn {
       from {
         opacity: 0;
-        transform: rotate(-2deg) translateY(10px);
+        transform: translateY(16px);
       }
 
       to {
-        opacity: 0.85;
-        transform: rotate(-2deg) translateY(0);
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
+
+    .hero-name-eyebrow {
+      font-family: var(--font-title);
+      font-size: clamp(0.5rem, 2.2vw, 0.68rem);
+      letter-spacing: 0.45em;
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      text-shadow:
+        0 0 18px rgba(255, 200, 30, 0.9),
+        0 0 40px rgba(255, 160, 0, 0.6),
+        0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero-name {
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 11vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      text-align: center;
+      color: #FFF0C0;
+      /* layered glow: tight warm core + broad sun halo */
+      text-shadow:
+        0 0 8px rgba(255, 220, 80, 1.0),
+        0 0 20px rgba(255, 180, 20, 0.85),
+        0 0 45px rgba(255, 130, 0, 0.65),
+        0 0 90px rgba(200, 80, 0, 0.40),
+        0 2px 4px rgba(0, 0, 0, 0.75);
     }
 
 
@@ -1225,37 +1219,9 @@
          Covers the printed sign in simba2.jpg.
          The SVG shape replicates the sign's distinctive arch bump.
          HTML text is layered on top for full LithosBlack font support. -->
-    <div class="hero-sign-wrap">
-      <!-- Sign shape: viewBox 340×105; bump occupies top ~28% (y=0–30) -->
-      <svg class="sign-svg" viewBox="0 0 340 105" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true">
-        <!-- FILL: maroon body matching sign in image -->
-        <path d="M28,30 L144,30 C147,22 151,14 157,8 C161,3 165,1 170,1
-             C175,1 179,3 183,8 C189,14 193,22 196,30 L312,30
-             Q322,30 322,40 L322,98 Q322,105 312,105
-             L28,105 Q18,105 18,98 L18,40 Q18,30 28,30 Z" fill="#6A1209" />
-        <!-- OUTER BORDER: gold frame -->
-        <path d="M28,30 L144,30 C147,22 151,14 157,8 C161,3 165,1 170,1
-             C175,1 179,3 183,8 C189,14 193,22 196,30 L312,30
-             Q322,30 322,40 L322,98 Q322,105 312,105
-             L28,105 Q18,105 18,98 L18,40 Q18,30 28,30 Z" fill="none" stroke="#C9960A" stroke-width="4" />
-        <!-- INNER BORDER: thin inset line -->
-        <path d="M34,37 L148,37 C151,30 154,23 159,17 C163,12 167,10 170,10
-             C173,10 177,12 181,17 C186,23 189,30 192,37 L306,37
-             Q313,37 313,44 L313,93 Q313,99 306,99
-             L34,99 Q27,99 27,93 L27,44 Q27,37 34,37 Z" fill="none" stroke="#E8B84B" stroke-width="1.5"
-          opacity="0.45" />
-        <!-- SUBTLE CORNER ORNAMENTS -->
-        <circle cx="27" cy="37" r="3" fill="#C9960A" opacity="0.5" />
-        <circle cx="313" cy="37" r="3" fill="#C9960A" opacity="0.5" />
-        <circle cx="313" cy="99" r="3" fill="#C9960A" opacity="0.5" />
-        <circle cx="27" cy="99" r="3" fill="#C9960A" opacity="0.5" />
-      </svg>
-
-      <!-- Name text rendered over the SVG shape -->
-      <div class="sign-text-layer">
-        <h1 class="sign-name">Mauro<br>Alessandro</h1>
-      </div>
+    <div class="hero-name-wrap">
+      <p class="hero-name-eyebrow">· Baby Shower ·</p>
+      <h1 class="hero-name">Mauro<br>Alessandro</h1>
     </div>
 
 
