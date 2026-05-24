@@ -309,17 +309,21 @@
 
     .sign-name {
       font-family: var(--font-title);
-      font-size: clamp(.7rem, 7.5vw, 3.8rem);
-      line-height: 1.0;
-      letter-spacing: 0.04em;
+      font-size: clamp(1.8rem, 9vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
       text-align: center;
-      color: #FFE07A;
-      text-shadow:
-        0 1px 0 rgba(40, 6, 0, 0.95),
-        0 3px 12px rgba(0, 0, 0, 0.7),
-        0 0 18px rgba(255, 190, 30, 0.28);
+      color: #FFD280;
+      mix-blend-mode: hard-light;
       opacity: 0;
-      animation: fadeUp 0.9s var(--ease-out) 0.4s forwards;
+      text-shadow: 0px 1px 2px rgba(0,0,0,0.6);
+      transform: rotate(-2deg);
+      animation: signFade 1.2s var(--ease-out) 0.5s forwards;
+    }
+
+    @keyframes signFade {
+      from { opacity: 0; transform: rotate(-2deg) translateY(10px); }
+      to { opacity: 0.85; transform: rotate(-2deg) translateY(0); }
     }
 
 
@@ -796,55 +800,6 @@
       color: rgba(240, 217, 181, 0.35);
       font-style: italic;
     }
-
-    /* ─────────────────────────────────────────
-       FOOTER
-    ───────────────────────────────────────── */
-    footer {
-      background-image: url('img/fondos/footer.jpg');
-      background-size: cover;
-      background-position: center;
-      text-align: center;
-      padding: 56px 24px 52px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    footer::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    footer>* {
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer-name {
-      font-family: var(--font-title);
-      font-size: clamp(2rem, 9vw, 2.8rem);
-      letter-spacing: 0.06em;
-      line-height: 1.1;
-      background: linear-gradient(135deg, var(--gold-light), var(--orange-mid));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
-    }
-
-    .footer-sub {
-      font-size: clamp(0.8rem, 3.5vw, 0.92rem);
-      color: rgba(240, 217, 181, 0.3);
-      font-style: italic;
-      letter-spacing: 0.06em;
-      line-height: 1.8;
-    }
-
-
 
     /* ─────────────────────────────────────────
        CANVAS CONFETTI
@@ -1737,10 +1692,7 @@
         <a href="https://wa.me/?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Mauro%20Alessandro%20el%2013%20de%20junio%20de%202026%20en%20Granja%20Guti%C3%A9rrez%20a%20las%204%3A00%20PM.%20%F0%9F%A6%81%F0%9F%8C%9F"
           target="_blank" rel="noopener noreferrer" class="wa-btn" id="btn-wa">
           <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-            <path
-              d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.527 5.845L0 24l6.335-1.652A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.014-1.376l-.36-.213-3.754.984.993-3.671-.234-.375A9.818 9.818 0 112 12c0 5.42 4.398 9.818 9.818 9.818H12v.001z" />
+            <path d="M12.031 0C5.395 0 0 5.396 0 12.031c0 2.12.553 4.195 1.6 6.012L.412 23.588l5.68-1.492A11.96 11.96 0 0012.03 24c6.636 0 12.032-5.396 12.032-12.032S18.667 0 12.031 0zm0 22.016a9.962 9.962 0 01-5.09-1.39l-.365-.216-3.785.992 1.006-3.69-.237-.378A9.962 9.962 0 012.016 12.03c0-5.524 4.492-10.016 10.015-10.016 5.524 0 10.016 4.492 10.016 10.016s-4.492 10.016-10.016 10.016zm5.542-7.558c-.304-.152-1.802-.89-2.08-.992-.278-.102-.482-.152-.684.152-.203.304-.785.992-.962 1.196-.177.203-.355.228-.66.076-1.572-.77-2.73-1.492-3.79-2.903-.272-.363.136-.33.722-1.503.1-.202.05-.378-.026-.53-.075-.152-.684-1.648-.937-2.256-.247-.594-.498-.513-.684-.522-.178-.008-.38-.01-.583-.01-.203 0-.532.076-.81.38-.28.304-1.065 1.04-1.065 2.535 0 1.495 1.09 2.94 1.242 3.142.152.203 2.143 3.27 5.19 4.587 1.637.706 2.456.845 3.328.784.774-.055 1.802-.736 2.055-1.446.253-.71.253-1.318.178-1.445-.076-.127-.28-.203-.584-.355z"/>
           </svg>
           CONFIRMAR POR WHATSAPP
         </a>
@@ -1750,25 +1702,6 @@
 
     </div>
   </section>
-
-  <!-- WAVE: seamless into footer -->
-  <div class="wave" aria-hidden="true">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#130900" />
-    </svg>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
-  <footer>
-    <div class="footer-name">Mauro Alessandro</div>
-    <p class="footer-sub">
-      Baby Shower &nbsp;&bull;&nbsp; 13 de Junio 2026
-    </p>
-
-
-  </footer>
 
   <canvas id="confetti-canvas"></canvas>
 
