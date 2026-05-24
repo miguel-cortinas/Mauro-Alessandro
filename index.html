@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baby Shower de Mauro Alessandro · El Rey León</title>
   <meta name="description"
     content="El ciclo de la vida nos regala su mayor milagro. Acompáñanos a celebrar la pronta llegada de Mauro Alessandro.">
@@ -87,6 +87,12 @@
       color: var(--sand);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+      height: 100vh;
+      touch-action: none;
     }
 
     body.no-scroll {
@@ -1183,6 +1189,10 @@
         opacity: 0;
       }
     }
+
+    .no-scroll {
+      overflow: hidden;
+    }
   </style>
 </head>
 
@@ -1205,26 +1215,7 @@
     <!-- Dawn light -->
     <div class="ent-dawn" id="ent-dawn"></div>
 
-    <!-- PLACEHOLDER_REMOVE -->
-    <svg class="ent-rays" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <g opacity="0.35" stroke="#FFD060" stroke-width="1.5" stroke-linecap="round">
-        <line x1="100" y1="10" x2="100" y2="0" />
-        <line x1="100" y1="190" x2="100" y2="200" />
-        <line x1="10" y1="100" x2="0" y2="100" />
-        <line x1="190" y1="100" x2="200" y2="100" />
-        <line x1="29" y1="29" x2="22" y2="22" />
-        <line x1="171" y1="29" x2="178" y2="22" />
-        <line x1="171" y1="171" x2="178" y2="178" />
-        <line x1="29" y1="171" x2="22" y2="178" />
-      </g>
-      <!-- Longer diagonal rays -->
-      <g opacity="0.18" stroke="#FFD060" stroke-width="0.8">
-        <line x1="100" y1="0" x2="190" y2="100" />
-        <line x1="100" y1="0" x2="10" y2="100" />
-        <line x1="0" y1="50" x2="100" y2="200" />
-        <line x1="200" y1="50" x2="100" y2="200" />
-      </g>
-    </svg>
+    
 
     <!-- Acacia trees silhouette -->
     <!-- Content -->
@@ -1710,75 +1701,88 @@
   <script>
     'use strict';
 
+    /* ── SHARED UTILITIES ── */
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    const easeIn = (t) => t * t * t;
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+    const pad = (n) => String(n).padStart(2, '0');
+
     /* ── SCROLL PROGRESS ── */
     const prog = document.getElementById('prog');
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', () => {
       const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-      prog.style.width = pct + '%';
+      if (prog) prog.style.width = pct + '%';
     }, { passive: true });
 
     /* ── INTERSECTION REVEAL ── */
     const rvEls = document.querySelectorAll('.rv');
-    const rvObs = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
+    const rvObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
         if (e.isIntersecting) { e.target.classList.add('in'); }
       });
     }, { threshold: 0.1 });
-    rvEls.forEach(function (el) { rvObs.observe(el); });
+    rvEls.forEach((el) => { rvObs.observe(el); });
 
     /* ── COUNTDOWN ── */
     const EVENT = new Date('2026-06-13T16:00:00');
-    var cdD = document.getElementById('cd-d');
-    var cdH = document.getElementById('cd-h');
-    var cdM = document.getElementById('cd-m');
-    var cdS = document.getElementById('cd-s');
-    var cdMsg = document.getElementById('cd-msg');
-
-    function pad(n) { return String(n).padStart(2, '0'); }
+    const cdD = document.getElementById('cd-d');
+    const cdH = document.getElementById('cd-h');
+    const cdM = document.getElementById('cd-m');
+    const cdS = document.getElementById('cd-s');
+    const cdMsg = document.getElementById('cd-msg');
+    let countdownTimer;
 
     function tick() {
-      var diff = EVENT - Date.now();
+      const diff = EVENT - Date.now();
       if (diff <= 0) {
-        cdD.textContent = cdH.textContent = cdM.textContent = cdS.textContent = '00';
-        cdMsg.textContent = '¡HOY ES EL BABY SHOWER — HAKUNA MATATA!';
+        if (cdD) cdD.textContent = cdH.textContent = cdM.textContent = cdS.textContent = '00';
+        if (cdMsg) cdMsg.textContent = '¡HOY ES EL BABY SHOWER — HAKUNA MATATA!';
         startConfetti();
+        if (countdownTimer) clearInterval(countdownTimer);
         return;
       }
-      var d = Math.floor(diff / 86400000);
-      var h = Math.floor(diff % 86400000 / 3600000);
-      var m = Math.floor(diff % 3600000 / 60000);
-      var s = Math.floor(diff % 60000 / 1000);
-      cdD.textContent = pad(d);
-      cdH.textContent = pad(h);
-      cdM.textContent = pad(m);
-      cdS.textContent = pad(s);
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
 
-      if (d === 0 && h < 2) {
-        cdMsg.textContent = 'Ya casi comienza el Baby Shower — prepara los abrazos';
-      } else if (d < 7) {
-        cdMsg.textContent = 'Falta poquito — el Baby Shower te espera';
-      } else if (d < 30) {
-        cdMsg.textContent = 'Preparate para el Baby Shower en la Sabana';
-      } else {
-        cdMsg.textContent = 'Guarda la fecha y preparate para celebrar al pequeño rey';
+      if (cdD) {
+        cdD.textContent = pad(d);
+        cdH.textContent = pad(h);
+        cdM.textContent = pad(m);
+        cdS.textContent = pad(s);
+      }
+
+      if (cdMsg) {
+        if (d === 0 && h < 2) {
+          cdMsg.textContent = 'Ya casi comienza el Baby Shower — prepara los abrazos';
+        } else if (d < 7) {
+          cdMsg.textContent = 'Falta poquito — el Baby Shower te espera';
+        } else if (d < 30) {
+          cdMsg.textContent = 'Preparate para el Baby Shower en la Sabana';
+        } else {
+          cdMsg.textContent = 'Guarda la fecha y preparate para celebrar al pequeño rey';
+        }
       }
     }
 
     tick();
-    setInterval(tick, 1000);
+    countdownTimer = setInterval(tick, 1000);
 
     /* ── CONFETTI (gold palette) ── */
     function startConfetti() {
-      var canvas = document.getElementById('confetti-canvas');
+      const canvas = document.getElementById('confetti-canvas');
       if (!canvas) return;
-      var ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       canvas.style.display = 'block';
 
-      var cols = ['#D4A017', '#F5C842', '#B94A18', '#FDE68A', '#E07B39', '#FFFFFF', '#C9960A'];
-      var pieces = [];
-      for (var i = 0; i < 100; i++) {
+      const cols = ['#D4A017', '#F5C842', '#B94A18', '#FDE68A', '#E07B39', '#FFFFFF', '#C9960A'];
+      const pieces = [];
+      for (let i = 0; i < 100; i++) {
         pieces.push({
           x: Math.random() * canvas.width,
           y: Math.random() * -canvas.height,
@@ -1793,12 +1797,12 @@
         });
       }
 
-      var frame = 0;
+      let frame = 0;
       function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        pieces.forEach(function (p) {
+        pieces.forEach((p) => {
           p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life++;
-          var alpha = Math.min(1, (300 - p.life) / 60);
+          const alpha = Math.min(1, (300 - p.life) / 60);
           ctx.save();
           ctx.translate(p.x, p.y);
           ctx.rotate(p.rot * Math.PI / 180);
@@ -1815,101 +1819,96 @@
     }
 
     /* ── ENTRANCE STARS ── */
-    (function () {
-      var starsEl = document.getElementById('ent-stars');
+    (() => {
+      const starsEl = document.getElementById('ent-stars');
       if (!starsEl) return;
-      for (var i = 0; i < 90; i++) {
-        var s = document.createElement('div');
+      for (let i = 0; i < 90; i++) {
+        const s = document.createElement('div');
         s.className = 'star';
-        var sz = (Math.random() * 2.4 + 0.4).toFixed(1);
+        const sz = (Math.random() * 2.4 + 0.4).toFixed(1);
         s.style.cssText = [
-          'width:' + sz + 'px',
-          'height:' + sz + 'px',
-          'top:' + (Math.random() * 75) + '%',
-          'left:' + (Math.random() * 100) + '%',
-          '--dur:' + (Math.random() * 3 + 2).toFixed(1) + 's',
-          '--delay:-' + (Math.random() * 5).toFixed(1) + 's',
-          'opacity:' + (Math.random() * 0.7 + 0.2).toFixed(2)
+          `width:${sz}px`,
+          `height:${sz}px`,
+          `top:${Math.random() * 75}%`,
+          `left:${Math.random() * 100}%`,
+          `--dur:${(Math.random() * 3 + 2).toFixed(1)}s`,
+          `--delay:-${(Math.random() * 5).toFixed(1)}s`,
+          `opacity:${(Math.random() * 0.7 + 0.2).toFixed(2)}`
         ].join(';');
         starsEl.appendChild(s);
       }
     })();
 
     /* ── DAWN ANIMATION SEQUENCE ── */
-    (function () {
-      var overlay = document.getElementById('entrance-overlay');
-      var entBg = document.getElementById('ent-bg');
-      var night = document.getElementById('ent-night');
-      var dawn = document.getElementById('ent-dawn');
-      var eyebrow = document.getElementById('ent-eyebrow');
-      var title = document.getElementById('ent-title');
-      var sub = document.getElementById('ent-subtitle');
-      var btn = document.getElementById('entrance-btn');
-      var stars = document.querySelectorAll('.star');
+    (() => {
+      const overlay = document.getElementById('entrance-overlay');
+      const entBg = document.getElementById('ent-bg');
+      const night = document.getElementById('ent-night');
+      const dawn = document.getElementById('ent-dawn');
+      const eyebrow = document.getElementById('ent-eyebrow');
+      const title = document.getElementById('ent-title');
+      const sub = document.getElementById('ent-subtitle');
+      const btn = document.getElementById('entrance-btn');
+      const stars = document.querySelectorAll('.star');
 
       if (!night || !dawn) return;
 
-      var startTime = null;
-      var TOTAL = 5000; // total dawn rise ms
-
-      function lerp(a, b, t) { return a + (b - a) * t; }
-      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-      function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+      let startTime = null;
+      const TOTAL = 5000;
 
       function animateDawn(ts) {
         if (!startTime) startTime = ts;
-        var elapsed = ts - startTime;
-        var raw = clamp(elapsed / TOTAL, 0, 1);
-        var t = easeInOut(raw);
+        const elapsed = ts - startTime;
+        const raw = clamp(elapsed / TOTAL, 0, 1);
 
-        // 1. Night veil lifts (0 → 60% of animation)
-        var nightT = clamp(raw / 0.60, 0, 1);
-        night.style.opacity = lerp(0.78, 0, nightT).toFixed(3);
+        // 1. Night veil lifts
+        const nightT = clamp(raw / 0.60, 0, 1);
+        if (night) night.style.opacity = lerp(0.78, 0, nightT).toFixed(3);
 
-        // 0. Image brightens with the dawn (brightness 0→1, saturation 0→1)
-        var imgT = clamp(raw / 0.90, 0, 1);
-        var br = lerp(0, 1, easeInOut(imgT));
-        var sat = lerp(0, 1, easeInOut(clamp((raw - 0.15) / 0.75, 0, 1)));
-        if (entBg) entBg.style.filter = 'brightness(' + br.toFixed(3) + ') saturate(' + sat.toFixed(3) + ')';
+        // 0. Image brightens
+        const imgT = clamp(raw / 0.90, 0, 1);
+        const br = lerp(0, 1, easeInOut(imgT));
+        const sat = lerp(0, 1, easeInOut(clamp((raw - 0.15) / 0.75, 0, 1)));
+        if (entBg) entBg.style.filter = `brightness(${br.toFixed(3)}) saturate(${sat.toFixed(3)})`;
 
-        // 2. Dawn light rises from horizon (0 → 85% of animation)
-        var dawnT = clamp(raw / 0.85, 0, 1);
-        dawn.style.height = lerp(0, 72, easeInOut(dawnT)).toFixed(1) + '%';
+        // 2. Dawn light rises
+        const dawnT = clamp(raw / 0.85, 0, 1);
+        if (dawn) dawn.style.height = `${lerp(0, 72, easeInOut(dawnT)).toFixed(1)}%`;
 
-        // 3. Stars fade out (start at 20%, done by 55%)
-        var starT = clamp((raw - 0.20) / 0.35, 0, 1);
+        // 3. Stars fade out
+        const starT = clamp((raw - 0.20) / 0.35, 0, 1);
         if (starT > 0) {
-          stars.forEach(function (s) {
-            var base = parseFloat(s.style.opacity) || 0.5;
+          stars.forEach((s) => {
+            const base = parseFloat(s.style.opacity) || 0.5;
             s.style.opacity = (base * (1 - starT)).toFixed(3);
             if (starT >= 1) s.classList.add('fade-out');
           });
         }
 
-        // 4. Eyebrow appears at 30%
-        if (raw >= 0.30) {
-          var ebT = clamp((raw - 0.30) / 0.18, 0, 1);
+        // 4. Eyebrow appears
+        if (raw >= 0.30 && eyebrow) {
+          const ebT = clamp((raw - 0.30) / 0.18, 0, 1);
           eyebrow.style.opacity = easeInOut(ebT).toFixed(3);
-          eyebrow.style.transform = 'translateY(' + lerp(14, 0, easeInOut(ebT)).toFixed(1) + 'px)';
+          eyebrow.style.transform = `translateY(${lerp(14, 0, easeInOut(ebT)).toFixed(1)}px)`;
         }
 
-        // 5. Title revealed by light at 45%
-        if (raw >= 0.45) {
-          var ttT = clamp((raw - 0.45) / 0.22, 0, 1);
+        // 5. Title revealed
+        if (raw >= 0.45 && title) {
+          const ttT = clamp((raw - 0.45) / 0.22, 0, 1);
           title.style.opacity = easeInOut(ttT).toFixed(3);
-          title.style.transform = 'translateY(' + lerp(20, 0, easeInOut(ttT)).toFixed(1) + 'px)';
+          title.style.transform = `translateY(${lerp(20, 0, easeInOut(ttT)).toFixed(1)}px)`;
         }
 
-        // 6. Subtitle at 62%
-        if (raw >= 0.62) {
-          var stT = clamp((raw - 0.62) / 0.18, 0, 1);
+        // 6. Subtitle
+        if (raw >= 0.62 && sub) {
+          const stT = clamp((raw - 0.62) / 0.18, 0, 1);
           sub.style.opacity = easeInOut(stT).toFixed(3);
-          sub.style.transform = 'translateY(' + lerp(14, 0, easeInOut(stT)).toFixed(1) + 'px)';
+          sub.style.transform = `translateY(${lerp(14, 0, easeInOut(stT)).toFixed(1)}px)`;
         }
 
-        // 7. Button at 80%
-        if (raw >= 0.80) {
-          var btT = clamp((raw - 0.80) / 0.20, 0, 1);
+        // 7. Button
+        if (raw >= 0.80 && btn) {
+          const btT = clamp((raw - 0.80) / 0.20, 0, 1);
           btn.style.opacity = easeInOut(btT).toFixed(3);
           if (btT >= 1) btn.classList.add('ready');
         }
@@ -1919,8 +1918,7 @@
         }
       }
 
-      // Small delay so image has time to paint
-      setTimeout(function () {
+      setTimeout(() => {
         requestAnimationFrame(animateDawn);
       }, 300);
     })();
@@ -1936,7 +1934,7 @@
 
     function showMusicPlayer() {
       if (musicPlayer) {
-        setTimeout(function () {
+        setTimeout(() => {
           musicPlayer.classList.add('visible');
         }, 700);
       }
@@ -1958,10 +1956,10 @@
     }
 
     if (entranceBtn && entranceOverlay && bgAudio) {
-      entranceBtn.addEventListener('click', function () {
-        bgAudio.play().then(function () {
+      entranceBtn.addEventListener('click', () => {
+        bgAudio.play().then(() => {
           updateMusicUI(true);
-        }).catch(function (e) {
+        }).catch((e) => {
           console.log('Audio autoplay blocked:', e);
           updateMusicUI(false);
         });
@@ -1972,57 +1970,45 @@
       });
     }
 
-    /* ── SMOOTH EXIT — same rAF language as the dawn entrance ── */
+    /* ── SMOOTH EXIT ── */
     function smoothExit() {
-      var entBg = document.getElementById('ent-bg');
-      var night = document.getElementById('ent-night');
-      var dawn = document.getElementById('ent-dawn');
-      var content = document.querySelector('.entrance-content');
-      var DURATION = 3200; // ms — unhurried, cinematic
-      var startTime = null;
-
-      function lerp(a, b, t) { return a + (b - a) * t; }
-      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-      function easeIn(t) { return t * t * t; }           // content fades early
-      function easeOut(t) { return 1 - Math.pow(1 - t, 3); } // image brightens late
+      const night = document.getElementById('ent-night');
+      const dawn = document.getElementById('ent-dawn');
+      const content = document.querySelector('.entrance-content');
+      const DURATION = 3200;
+      let startTime = null;
 
       function tick(ts) {
         if (!startTime) startTime = ts;
-        var raw = clamp((ts - startTime) / DURATION, 0, 1);
+        const raw = clamp((ts - startTime) / DURATION, 0, 1);
 
-        // 1. Content (text + button) fades out first — quick and gentle
         if (content) {
-          var cT = clamp(raw / 0.30, 0, 1);
+          const cT = clamp(raw / 0.30, 0, 1);
           content.style.opacity = (1 - easeIn(cT)).toFixed(3);
         }
 
-        // 2. Night veil comes back slightly to soften the image
-        //    then lifts again as full light takes over (creates a breath)
         if (night) {
-          var nT = clamp(raw / 0.55, 0, 1);
-          // gentle breath: rises to 0.35 opacity then falls back to 0
-          var breath = nT < 0.5
+          const nT = clamp(raw / 0.55, 0, 1);
+          const breath = nT < 0.5
             ? lerp(0, 0.35, nT * 2)
             : lerp(0.35, 0, (nT - 0.5) * 2);
           night.style.opacity = breath.toFixed(3);
         }
 
-        // 3. Dawn light grows to cover screen
         if (dawn) {
-          var dT = clamp(raw / 0.70, 0, 1);
-          dawn.style.height = lerp(72, 100, easeOut(dT)).toFixed(1) + '%';
+          const dT = clamp(raw / 0.70, 0, 1);
+          dawn.style.height = `${lerp(72, 100, easeOut(dT)).toFixed(1)}%`;
         }
 
-        // 4. Everything fades together as one — overlay, image, dawn, all in sync
-        if (raw >= 0.30) {
-          var oT = clamp((raw - 0.30) / 0.70, 0, 1);
-          var opacity = (1 - easeOut(oT)).toFixed(3);
+        if (raw >= 0.30 && entranceOverlay) {
+          const oT = clamp((raw - 0.30) / 0.70, 0, 1);
+          const opacity = (1 - easeOut(oT)).toFixed(3);
           entranceOverlay.style.opacity = opacity;
         }
 
         if (raw < 1) {
           requestAnimationFrame(tick);
-        } else {
+        } else if (entranceOverlay) {
           entranceOverlay.remove();
         }
       }
@@ -2032,18 +2018,19 @@
 
     /* ── MUSIC BUBBLE TOGGLE ── */
     if (mpBubble && bgAudio) {
-      mpBubble.addEventListener('click', function () {
+      mpBubble.addEventListener('click', () => {
         if (bgAudio.paused) {
-          bgAudio.play().then(function () { updateMusicUI(true); }).catch(function () { });
+          bgAudio.play().then(() => updateMusicUI(true)).catch(() => {});
         } else {
           bgAudio.pause();
           updateMusicUI(false);
         }
       });
-      bgAudio.addEventListener('pause', function () { updateMusicUI(false); });
-      bgAudio.addEventListener('play', function () { updateMusicUI(true); });
+      bgAudio.addEventListener('pause', () => updateMusicUI(false));
+      bgAudio.addEventListener('play', () => updateMusicUI(true));
     }
   </script>
+
 
 </body>
 
