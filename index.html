@@ -418,6 +418,7 @@
       background-position: center;
       background-attachment: fixed;
     }
+
     /* Dark cinematic overlay on top of bg images */
     .sec-bg::before {
       content: '';
@@ -427,6 +428,7 @@
       z-index: 0;
       pointer-events: none;
     }
+
     .sec-bg .sec-inner {
       position: relative;
       z-index: 1;
@@ -828,6 +830,7 @@
       overflow: hidden;
       position: relative;
     }
+
     footer::before {
       content: '';
       position: absolute;
@@ -836,7 +839,8 @@
       z-index: 0;
       pointer-events: none;
     }
-    footer > * {
+
+    footer>* {
       position: relative;
       z-index: 1;
     }
@@ -911,15 +915,14 @@
       overflow: hidden;
       transition: opacity 1.6s var(--ease-out), transform 1.8s cubic-bezier(0.85, 0, 0.15, 1);
     }
+
     /* Dramatic dark vignette over the bg image */
     #entrance-overlay .ent-sky {
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.55) 0%,
-        rgba(10,4,0,0.2) 35%,
-        rgba(10,4,0,0.5) 70%,
-        rgba(0,0,0,0.88) 100%
-      );
+      background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.55) 0%,
+          rgba(10, 4, 0, 0.2) 35%,
+          rgba(10, 4, 0, 0.5) 70%,
+          rgba(0, 0, 0, 0.88) 100%);
     }
 
     /* ── Starfield ── */
@@ -1009,7 +1012,7 @@
 
     .entrance-title {
       font-family: var(--font-title);
-      font-size: clamp(3.5rem, 16vw, 7rem);
+      font-size: clamp(3.5rem, 1vw, 7rem);
       color: var(--gold-bright);
       margin-bottom: 2px;
       line-height: 0.95;
@@ -1021,10 +1024,25 @@
       opacity: 0;
       animation: titleBlast 1.2s var(--ease-out) 0.9s forwards;
     }
+
     @keyframes titleBlast {
-      0%   { opacity: 0; transform: scale(0.6) translateY(30px); filter: blur(8px); }
-      60%  { opacity: 1; transform: scale(1.05) translateY(-4px); filter: blur(0); }
-      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+      0% {
+        opacity: 0;
+        transform: scale(0.6) translateY(30px);
+        filter: blur(8px);
+      }
+
+      60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-4px);
+        filter: blur(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
     }
 
     .entrance-subtitle {
@@ -1110,11 +1128,13 @@
       transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
       pointer-events: none;
     }
+
     #music-player.visible {
       opacity: 1;
       transform: scale(1) translateY(0);
       pointer-events: auto;
     }
+
     #mp-bubble {
       width: 56px;
       height: 56px;
@@ -1134,16 +1154,25 @@
       position: relative;
       overflow: hidden;
     }
+
     #mp-bubble::before {
       content: '';
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.25) 0%, transparent 60%);
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.25) 0%, transparent 60%);
       pointer-events: none;
     }
-    #mp-bubble:hover  { transform: scale(1.1);  box-shadow: 0 6px 28px rgba(200,120,10,.75), 0 0 0 4px rgba(200,150,10,.35), inset 0 1px 0 rgba(255,255,255,.3); }
-    #mp-bubble:active { transform: scale(0.94); }
+
+    #mp-bubble:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(200, 120, 10, .75), 0 0 0 4px rgba(200, 150, 10, .35), inset 0 1px 0 rgba(255, 255, 255, .3);
+    }
+
+    #mp-bubble:active {
+      transform: scale(0.94);
+    }
+
     #mp-bubble svg {
       width: 24px;
       height: 24px;
@@ -1152,6 +1181,7 @@
       position: relative;
       z-index: 1;
     }
+
     /* Pulse ring when playing */
     #music-player.playing #mp-bubble::after {
       content: '';
@@ -1161,9 +1191,17 @@
       border: 2px solid rgba(200, 150, 10, 0.4);
       animation: musicPulse 2s ease-out infinite;
     }
+
     @keyframes musicPulse {
-      0%   { transform: scale(1);    opacity: 0.8; }
-      100% { transform: scale(1.5);  opacity: 0; }
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -1252,11 +1290,12 @@
     <button id="mp-bubble" aria-label="Pausar música" title="Hakuna Matata">
       <!-- Pause icon (default: playing) -->
       <svg id="mp-icon-pause" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
       </svg>
       <!-- Play icon (shown when paused) -->
-      <svg id="mp-icon-play" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display:none">
-        <path d="M8 5v14l11-7z"/>
+      <svg id="mp-icon-play" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+        style="display:none">
+        <path d="M8 5v14l11-7z" />
       </svg>
     </button>
   </div>
@@ -1914,12 +1953,12 @@
       if (!musicPlayer) return;
       if (playing) {
         musicPlayer.classList.add('playing');
-        if (mpIconPlay)  mpIconPlay.style.display  = 'none';
+        if (mpIconPlay) mpIconPlay.style.display = 'none';
         if (mpIconPause) mpIconPause.style.display = 'block';
         if (mpBubble) mpBubble.setAttribute('aria-label', 'Pausar música');
       } else {
         musicPlayer.classList.remove('playing');
-        if (mpIconPlay)  mpIconPlay.style.display  = 'block';
+        if (mpIconPlay) mpIconPlay.style.display = 'block';
         if (mpIconPause) mpIconPause.style.display = 'none';
         if (mpBubble) mpBubble.setAttribute('aria-label', 'Reproducir música');
       }
@@ -1954,7 +1993,7 @@
         }
       });
       bgAudio.addEventListener('pause', function () { updateMusicUI(false); });
-      bgAudio.addEventListener('play',  function () { updateMusicUI(true); });
+      bgAudio.addEventListener('play', function () { updateMusicUI(true); });
     }
   </script>
 
