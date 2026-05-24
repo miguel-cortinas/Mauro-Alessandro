@@ -89,6 +89,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    body.no-scroll {
+      overflow: hidden;
+      height: 100vh;
+      touch-action: none;
+    }
+
     img,
     video,
     iframe {
@@ -1180,7 +1186,7 @@
   </style>
 </head>
 
-<body>
+<body class="no-scroll">
 
   <!-- ══════════════════════════════════════════
        ENTRANCE OVERLAY — LION KING DAWN
@@ -1961,6 +1967,7 @@
         });
 
         showMusicPlayer();
+        document.body.classList.remove('no-scroll');
         smoothExit();
       });
     }
