@@ -432,26 +432,26 @@
     ───────────────────────────────────────── */
     .sec-bg {
       position: relative;
-      /* no background here — handled by ::before for iOS compat */
+      /* clip-path crea un contexto de apilamiento y recorta el fondo fijo, logrando el parallax real en iOS */
+      clip-path: inset(0);
+      -webkit-clip-path: inset(0);
     }
 
-    /* Parallax-style fixed background — works on both Android and iOS */
+    /* Parallax real usando position: fixed + clip-path */
     .sec-bg::before {
       content: '';
-      position: absolute;
-      inset: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background-size: cover;
       background-position: center;
-      background-attachment: fixed;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
-    }
-
-    /* iOS Safari: fixed + background-attachment don't mix — use scroll fallback */
-    @supports (-webkit-touch-callout: none) {
-      .sec-bg::before {
-        background-attachment: scroll;
-      }
+      /* Optimización de hardware para evitar glitches visuales al hacer scroll en iOS */
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     /* Dark cinematic overlay */
