@@ -422,13 +422,30 @@
     ───────────────────────────────────────── */
     .sec-bg {
       position: relative;
+      /* no background here — handled by ::before for iOS compat */
+    }
+
+    /* Parallax-style fixed background — works on both Android and iOS */
+    .sec-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    /* Dark cinematic overlay on top of bg images */
-    .sec-bg::before {
+    /* iOS Safari: fixed + background-attachment don't mix — use scroll fallback */
+    @supports (-webkit-touch-callout: none) {
+      .sec-bg::before {
+        background-attachment: scroll;
+      }
+    }
+
+    /* Dark cinematic overlay */
+    .sec-bg::after {
       content: '';
       position: absolute;
       inset: 0;
@@ -442,7 +459,7 @@
       z-index: 1;
     }
 
-    #s-invite {
+    #s-invite::before {
       background-image: url('img/fondos/1.jpg');
     }
 
@@ -467,7 +484,7 @@
        ██  SECTION 3 — DETALLES
        bg: night (between orange waves)
     ───────────────────────────────────────── */
-    #s-details {
+    #s-details::before {
       background-image: url('img/fondos/2.jpg');
     }
 
@@ -523,7 +540,7 @@
        ██  SECTION 4 — CUENTA REGRESIVA
        bg: orange mid
     ───────────────────────────────────────── */
-    #s-countdown {
+    #s-countdown::before {
       background-image: url('img/fondos/3.jpg');
     }
 
@@ -618,7 +635,7 @@
        ██  SECTION 5 — REGALOS
        bg: dark
     ───────────────────────────────────────── */
-    #s-gifts {
+    #s-gifts::before {
       background-image: url('img/fondos/4.jpg');
     }
 
@@ -690,7 +707,7 @@
        ██  SECTION 6 — UBICACIÓN
        bg: orange
     ───────────────────────────────────────── */
-    #s-map {
+    #s-map::before {
       background-image: url('img/fondos/5.jpg');
     }
 
@@ -748,7 +765,7 @@
        ██  SECTION 7 — CONFIRMACIÓN
        bg: dark
     ───────────────────────────────────────── */
-    #s-confirm {
+    #s-confirm::before {
       background-image: url('img/fondos/6.jpg');
     }
 
