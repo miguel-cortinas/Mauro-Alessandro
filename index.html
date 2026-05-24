@@ -858,6 +858,49 @@
 
     }
 
+    /* ── Sun burst transition ── */
+    #sun-burst {
+      position: fixed;
+      z-index: 999999;
+      border-radius: 50%;
+      pointer-events: none;
+      /* centered on horizon: 50% wide, bottom 30% */
+      width: 10px;
+      height: 10px;
+      left: 50%;
+      top: 68%;
+      transform: translate(-50%, -50%) scale(1);
+      background: radial-gradient(circle,
+          #FFFBE0 0%,
+          #FFE060 18%,
+          #FFB020 38%,
+          #E06010 60%,
+          #C03000 80%,
+          transparent 100%);
+      opacity: 0;
+    }
+
+    #sun-burst.burst {
+      animation: sunExplode 1.0s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes sunExplode {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      60% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(800);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(800);
+      }
+    }
+
     #entrance-overlay.hidden {
       opacity: 0;
       pointer-events: none;
@@ -1928,6 +1971,11 @@
       }
     }
 
+    /* ── SUN BURST element ── */
+    var burst = document.createElement('div');
+    burst.id = 'sun-burst';
+    document.body.appendChild(burst);
+
     if (entranceBtn && entranceOverlay && bgAudio) {
       entranceBtn.addEventListener('click', function () {
         bgAudio.play().then(function () {
@@ -1937,12 +1985,20 @@
           updateMusicUI(false);
         });
 
-        entranceOverlay.classList.add('hidden');
-        showMusicPlayer();
+        // Phase 1: sun burst explodes from horizon
+        burst.classList.add('burst');
 
+        // Phase 2: at peak of burst (600ms), fade out overlay behind it
         setTimeout(function () {
+          entranceOverlay.classList.add('hidden');
+        }, 580);
+
+        // Phase 3: burst fades out (end of animation at 1000ms), show music player
+        setTimeout(function () {
+          showMusicPlayer();
           entranceOverlay.remove();
-        }, 1600);
+          burst.remove();
+        }, 1050);
       });
     }
 
