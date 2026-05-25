@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Forzar apariencia clara: evita que dispositivos con modo oscuro automático alteren la paleta -->
+  <meta name="color-scheme" content="only light">
   <title>Baby Shower de Mauro Alessandro</title>
   <meta name="description"
     content="El ciclo de la vida nos regala su mayor milagro. Acompáñanos a celebrar la pronta llegada de Mauro Alessandro.">
@@ -24,6 +26,11 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
     rel="stylesheet">
 
+  <!-- Preloads críticos: mejoran LCP y evitan FOIT/imagen invisible al cargar -->
+  <link rel="preload" as="image" href="img/fondos/entrada.jpg">
+  <link rel="preload" as="image" href="img/simba2.jpg">
+  <link rel="preload" as="font" type="font/otf" href="fonts/tercera-lithosBlack/lithosblack.otf" crossorigin>
+
   <style>
     /* ─────────────────────────────────────────
        CUSTOM FONT
@@ -40,6 +47,9 @@
        DESIGN TOKENS
     ───────────────────────────────────────── */
     :root {
+      /* Forzar modo claro aunque el SO o navegador prefiera modo oscuro */
+      color-scheme: only light;
+
       --gold: #C9960A;
       --gold-light: #E8B84B;
       --gold-pale: #F5DEB3;
@@ -87,12 +97,6 @@
       color: var(--sand);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
-    }
-
-    body.no-scroll {
-      overflow: hidden;
-      height: 100vh;
-      touch-action: none;
     }
 
     body.no-scroll {
@@ -219,7 +223,7 @@
 
     .label {
       font-family: var(--font-title);
-      font-size: 0.58rem;
+      font-size: 0.65rem;
       letter-spacing: 0.4em;
       color: var(--gold);
       text-transform: uppercase;
@@ -461,9 +465,8 @@
       background-position: center;
       z-index: -1;
       pointer-events: none;
-      /* Optimización de hardware para evitar glitches visuales al hacer scroll en iOS */
+      /* Contexto de composición para evitar glitches en iOS sin abusar de will-change */
       transform: translateZ(0);
-      will-change: transform;
     }
 
     /* Dark cinematic overlay */
@@ -525,6 +528,8 @@
       border-radius: var(--radius);
       padding: 28px 16px 24px;
       text-align: center;
+      /* Crea contexto de apilamiento propio para que backdrop-filter funcione correctamente en Safari/iOS */
+      isolation: isolate;
     }
 
     .tile-icon {
@@ -543,7 +548,7 @@
 
     .tile-lbl {
       font-family: var(--font-title);
-      font-size: 0.52rem;
+      font-size: 0.6rem;
       letter-spacing: 0.28em;
       color: var(--gold);
       text-transform: uppercase;
@@ -637,7 +642,7 @@
 
     .cd-lbl {
       font-family: var(--font-title);
-      font-size: clamp(0.45rem, 2vw, 0.58rem);
+      font-size: clamp(0.6rem, 2vw, 0.7rem);
       letter-spacing: 0.18em;
       color: rgba(200, 150, 10, 0.65);
       text-transform: uppercase;
@@ -676,6 +681,8 @@
       border-radius: var(--radius);
       padding: 28px 12px 22px;
       text-align: center;
+      /* Contexto propio para backdrop-filter en Safari/iOS */
+      isolation: isolate;
     }
 
     .gift-icon {
@@ -861,7 +868,7 @@
     .wa-note {
       margin-top: 14px;
       font-size: clamp(0.78rem, 3.5vw, 0.88rem);
-      color: rgba(240, 217, 181, 0.35);
+      color: rgba(240, 217, 181, 0.6);
       font-style: italic;
     }
 
@@ -1190,8 +1197,25 @@
       }
     }
 
-    .no-scroll {
-      overflow: hidden;
+    /* ─────────────────────────────────────────
+       REDUCED MOTION — ACCESIBILIDAD
+    ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      /* Las secciones revelan inmediatamente sin animación */
+      .rv {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
   </style>
 </head>
@@ -1217,7 +1241,6 @@
 
 
 
-    <!-- Acacia trees silhouette -->
     <!-- Content -->
     <div class="entrance-content">
       <p class="ent-eyebrow" id="ent-eyebrow">· El Círculo de la Vida ·</p>
@@ -1259,8 +1282,8 @@
 
     <!-- Image at full natural portrait proportions (736×1308) — no crop -->
     <div class="hero-img-wrap">
-      <img src="img/simba2.jpg" alt="Simba, Timón y Pumba celebrando el Baby Shower de Mauro Alessandro" loading="eager"
-        decoding="async">
+      <img src="img/simba2.jpg" alt="Simba, Timón y Pumba celebrando el Baby Shower de Mauro Alessandro"
+        width="736" height="1308" loading="eager" decoding="async">
     </div>
 
     <!-- SVG SIGN OVERLAY
@@ -1634,8 +1657,6 @@
 
       <p class="label rv">· Antes de venir ·</p>
       <h2 class="title rv d1">Confirma tu Asistencia</h2>
-      <!-- Baby shower context -->
-      <!-- (content adjusted below) -->
 
       <div class="ornament rv d2">
         <span class="ornament-line"></span>
@@ -1678,7 +1699,7 @@
           por favor confírmanos tu asistencia lo antes posible.
         </p>
 
-        <a href="https://wa.me/?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Mauro%20Alessandro%20el%2013%20de%20junio%20de%202026%20en%20Granja%20Guti%C3%A9rrez%20a%20las%204%3A00%20PM.%20%F0%9F%A6%81%F0%9F%8C%9F"
+        <a href="https://wa.me/526142784845?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Mauro%20Alessandro%20el%2013%20de%20junio%20de%202026%20en%20Granja%20Guti%C3%A9rrez%20a%20las%204%3A00%20PM.%20%F0%9F%A6%81%F0%9F%8C%9F"
           target="_blank" rel="noopener noreferrer" class="wa-btn" id="btn-wa">
           <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -1692,8 +1713,6 @@
 
     </div>
   </section>
-
-  <canvas id="confetti-canvas"></canvas>
 
   <!-- ══════════════════════════════════════════
        JAVASCRIPT
