@@ -918,7 +918,7 @@
       align-items: stretch;
       justify-content: center;
       overflow: hidden;
-      transition: opacity 1.8s var(--ease-out);
+      transition: opacity 0.7s var(--ease-out);
 
     }
 
@@ -964,19 +964,16 @@
 
       0%,
       100% {
-        opacity: var(--base-opacity, 0.85);
         transform: scale(1);
         box-shadow: 0 0 2px 0px rgba(255, 230, 150, 0.0);
       }
 
       40% {
-        opacity: calc(var(--base-opacity, 0.85) * 0.55);
         transform: scale(0.82);
         box-shadow: 0 0 0px 0px rgba(255, 230, 150, 0.0);
       }
 
       70% {
-        opacity: var(--base-opacity, 0.85);
         transform: scale(1.08);
         box-shadow: 0 0 3px 1px rgba(255, 230, 150, 0.35);
       }
@@ -1924,6 +1921,7 @@
         s.className = 'star';
         const sz = (Math.random() * 2.4 + 0.4).toFixed(1);
         const baseOpacity = (Math.random() * 0.6 + 0.3).toFixed(2);
+        s.dataset.base = baseOpacity;
         s.style.cssText = [
           `width:${sz}px`,
           `height:${sz}px`,
@@ -1931,7 +1929,6 @@
           `left:${Math.random() * 100}%`,
           `--dur:${(Math.random() * 4 + 2.5).toFixed(1)}s`,
           `--delay:-${(Math.random() * 6).toFixed(1)}s`,
-          `--base-opacity:${baseOpacity}`,
           `opacity:${baseOpacity}`
         ].join(';');
         starsEl.appendChild(s);
@@ -1948,10 +1945,8 @@
 
       if (!night || !dawn) return;
 
-      // Guardar opacidades base de estrellas antes de animar
-      const starBases = Array.from(stars).map(s =>
-        parseFloat(s.style.getPropertyValue('--base-opacity') || s.style.opacity) || 0.5
-      );
+      // Opacidades base guardadas en dataset
+      const starBases = Array.from(stars).map(s => parseFloat(s.dataset.base) || 0.5);
 
       // Easing suave tipo "cinemático" — menos agresivo que easeInOut cuadrático
       const easeSoft = t => t < 0.5
@@ -1959,7 +1954,7 @@
         : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
       let startTime = null;
-      const TOTAL = 7200; // más lento = más cinematográfico
+      const TOTAL = 3200; // rápido pero cinematográfico
 
       function animateDawn(ts) {
         if (!startTime) startTime = ts;
@@ -1997,9 +1992,9 @@
           });
         }
 
-        // ── 4. Botón: aparece al final, muy suave
-        if (raw >= 0.78) {
-          const btT = clamp((raw - 0.78) / 0.22, 0, 1);
+        // ── 4. Botón: aparece más temprano para no frustrar al usuario
+        if (raw >= 0.52) {
+          const btT = clamp((raw - 0.52) / 0.28, 0, 1);
           if (btn) {
             btn.style.opacity = easeSoft(btT).toFixed(4);
             if (btT >= 1) btn.classList.add('ready');
@@ -2065,7 +2060,7 @@
       const night = document.getElementById('ent-night');
       const dawn = document.getElementById('ent-dawn');
       const content = document.querySelector('.entrance-content');
-      const DURATION = 3200;
+      const DURATION = 1400;
       let startTime = null;
 
       function tick(ts) {
