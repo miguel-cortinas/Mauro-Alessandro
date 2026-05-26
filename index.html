@@ -1032,12 +1032,12 @@
       position: relative;
       z-index: 10;
       text-align: center;
-      padding: 6vh 32px 8vh;
+      padding: 0 32px 9vh;
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
     }
 
@@ -1106,36 +1106,86 @@
 
     /* Open button */
     .ent-btn {
-      margin-top: 0;
-      margin-bottom: 0;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      background: linear-gradient(135deg, #FFD060 0%, #C9700A 100%);
-      color: #1A0500;
+      gap: 10px;
+      background: rgba(12, 5, 0, 0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(200, 150, 10, 0.55);
+      color: var(--gold-light);
       font-family: var(--font-title);
-      font-size: clamp(0.65rem, 3vw, 0.82rem);
+      font-size: clamp(0.62rem, 2.8vw, 0.78rem);
       font-weight: 900;
-      letter-spacing: 0.32em;
+      letter-spacing: 0.38em;
       text-transform: uppercase;
-      padding: 18px 40px;
+      padding: 17px 44px;
       border-radius: 60px;
-      border: none;
       cursor: pointer;
-      box-shadow: 0 6px 32px rgba(200, 130, 10, .55), inset 0 1px 0 rgba(255, 255, 255, .25);
-      transition: transform 0.2s, box-shadow 0.2s, opacity 0.6s ease;
-      -webkit-tap-highlight-color: transparent;
+      box-shadow:
+        0 0 0 1px rgba(200, 150, 10, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 200, 80, 0.12);
+      overflow: hidden;
       opacity: 0;
+      transition: transform 0.22s var(--ease-out), box-shadow 0.22s, border-color 0.22s, opacity 0.6s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Shimmer sweep */
+    .ent-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg,
+          transparent 0%,
+          rgba(255, 210, 80, 0.18) 50%,
+          transparent 100%);
+      animation: btnShimmer 3.2s ease-in-out infinite;
+    }
+
+    @keyframes btnShimmer {
+      0% {
+        left: -75%;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      60% {
+        left: 130%;
+        opacity: 1;
+      }
+
+      61% {
+        opacity: 0;
+      }
+
+      100% {
+        left: 130%;
+        opacity: 0;
+      }
     }
 
     .ent-btn:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 12px 40px rgba(200, 130, 10, .7);
+      border-color: rgba(200, 150, 10, 0.85);
+      box-shadow:
+        0 0 0 1px rgba(200, 150, 10, 0.25),
+        0 12px 40px rgba(0, 0, 0, 0.65),
+        0 0 24px rgba(200, 140, 10, 0.25),
+        inset 0 1px 0 rgba(255, 200, 80, 0.18);
+      transform: translateY(-2px);
     }
 
     .ent-btn:active {
-      transform: translateY(0) scale(0.98);
+      transform: scale(0.97);
     }
 
     /* ─────────────────────────────────────────
@@ -1274,7 +1324,6 @@
 
     <!-- Content -->
     <div class="entrance-content">
-      <p class="entrance-subtitle" id="ent-subtitle">Un pequeño rey está por llegar a nuestra manada</p>
       <button id="entrance-btn" class="ent-btn">INICIAR</button>
     </div>
 
@@ -1894,7 +1943,6 @@
       const entBg = document.getElementById('ent-bg');
       const night = document.getElementById('ent-night');
       const dawn = document.getElementById('ent-dawn');
-      const sub = document.getElementById('ent-subtitle');
       const btn = document.getElementById('entrance-btn');
       const stars = document.querySelectorAll('.star');
 
@@ -1949,16 +1997,7 @@
           });
         }
 
-        // ── 4. Subtítulo: aparece suave
-        if (raw >= 0.42) {
-          const stT = clamp((raw - 0.42) / 0.30, 0, 1);
-          if (sub) {
-            sub.style.opacity = easeSoft(stT).toFixed(4);
-            sub.style.transform = `translateY(${lerp(14, 0, easeSoft(stT)).toFixed(2)}px)`;
-          }
-        }
-
-        // ── 6. Botón: aparece al final, muy suave
+        // ── 4. Botón: aparece al final, muy suave
         if (raw >= 0.78) {
           const btT = clamp((raw - 0.78) / 0.22, 0, 1);
           if (btn) {
