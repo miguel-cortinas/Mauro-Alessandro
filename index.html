@@ -971,7 +971,8 @@
       z-index: 2;
       background: rgba(0, 0, 0, 0.78);
       pointer-events: none;
-      transition: none; /* controlled entirely via JS inline style */
+      transition: none;
+      /* controlled entirely via JS inline style */
     }
 
     /* ── Dawn light: rises from the horizon ── */
@@ -1008,12 +1009,12 @@
       filter: blur(12px);
     }
 
-    /* ── Content (text + button) ── */
+    /* ── Content (texto + botón) ── */
     .entrance-content {
       position: relative;
       z-index: 10;
       text-align: center;
-      padding: 0 32px 9vh;
+      padding: 0 32px 8vh;
       width: 100%;
       height: 100%;
       display: flex;
@@ -1030,20 +1031,19 @@
       align-items: center;
       gap: 14px;
       /* Gradiente dorado sólido — no transparente */
-      background: linear-gradient(
-        135deg,
-        #FFD84D 0%,
-        #F09000 42%,
-        #C05800 78%,
-        #7A2800 100%
-      );
+      background: linear-gradient(135deg,
+          #FFD84D 0%,
+          #F09000 42%,
+          #C05800 78%,
+          #7A2800 100%);
       color: #1A0500;
       font-family: var(--font-title);
       font-size: clamp(0.6rem, 2.6vw, 0.76rem);
       font-weight: 900;
       letter-spacing: 0.36em;
       text-transform: uppercase;
-      text-indent: 0.36em; /* compensa letter-spacing en el trailing edge */
+      text-indent: 0.36em;
+      /* compensa letter-spacing en el trailing edge */
       padding: 18px 40px 18px 32px;
       border-radius: 60px;
       border: none;
@@ -1101,11 +1101,9 @@
       right: 0;
       height: 50%;
       border-radius: 60px 60px 0 0;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.22) 0%,
-        transparent 100%
-      );
+      background: linear-gradient(180deg,
+          rgba(255, 255, 255, 0.22) 0%,
+          transparent 100%);
       pointer-events: none;
     }
 
@@ -1117,22 +1115,37 @@
       left: -90%;
       width: 55%;
       height: 100%;
-      background: linear-gradient(
-        115deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.18) 50%,
-        transparent 100%
-      );
+      background: linear-gradient(115deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.18) 50%,
+          transparent 100%);
       animation: btnShimmer 4s ease-in-out infinite;
       pointer-events: none;
     }
 
     @keyframes btnShimmer {
-      0%   { left: -90%; opacity: 0; }
-      10%  { opacity: 1; }
-      55%  { left: 140%; opacity: 1; }
-      56%  { opacity: 0; }
-      100% { left: 140%; opacity: 0; }
+      0% {
+        left: -90%;
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      55% {
+        left: 140%;
+        opacity: 1;
+      }
+
+      56% {
+        opacity: 0;
+      }
+
+      100% {
+        left: 140%;
+        opacity: 0;
+      }
     }
 
     .ent-btn:hover {
@@ -1241,6 +1254,123 @@
     }
 
     /* ─────────────────────────────────────────
+       ENTRANCE TEXT BLOCK
+    ───────────────────────────────────────── */
+    .ent-text {
+      /* Posición absoluta: no compite con el botón en el flujo flex */
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 5vh 28px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      /* El amanecer JS controla la opacidad — no CSS animation */
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+
+    .ent-text.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .ent-eyebrow {
+      font-family: var(--font-title);
+      font-size: clamp(0.48rem, 2vw, 0.58rem);
+      letter-spacing: 0.48em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      /* Sombra de texto para que sea legible sobre cualquier fondo */
+      text-shadow:
+        0 1px 0 rgba(0, 0, 0, 0.9),
+        0 2px 8px rgba(0, 0, 0, 0.85),
+        0 0 20px rgba(0, 0, 0, 0.7);
+      margin-bottom: 8px;
+    }
+
+    .ent-name {
+      font-family: var(--font-title);
+      /* Moderado: grande pero no cubre los personajes */
+      font-size: clamp(1.9rem, 8.5vw, 3rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      text-align: center;
+      background: linear-gradient(170deg,
+          #FFE566 0%,
+          #F5A800 45%,
+          #C95C00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* Contorno oscuro para legibilidad sobre fondo naranja */
+      filter:
+        drop-shadow(0 2px 0 rgba(30, 8, 0, 0.95))
+        drop-shadow(0 -1px 0 rgba(30, 8, 0, 0.8))
+        drop-shadow(1.5px 0 0 rgba(30, 8, 0, 0.8))
+        drop-shadow(-1.5px 0 0 rgba(30, 8, 0, 0.8))
+        drop-shadow(0 4px 20px rgba(0, 0, 0, 0.6));
+      margin-bottom: 8px;
+    }
+
+    .ent-tagline {
+      font-family: var(--font-body);
+      font-size: clamp(0.75rem, 3vw, 0.9rem);
+      font-style: italic;
+      color: rgba(255, 232, 190, 0.95);
+      letter-spacing: 0.05em;
+      text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.9),
+        0 2px 12px rgba(0, 0, 0, 0.8);
+      margin-bottom: 10px;
+    }
+
+    /* Ornamento: línea — • — fecha */
+    .ent-divider {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .ent-divider-line {
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232, 184, 75, 0.7), transparent);
+    }
+
+    .ent-divider-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.7;
+    }
+
+    .ent-date {
+      font-family: var(--font-title);
+      font-size: clamp(0.5rem, 2vw, 0.6rem);
+      letter-spacing: 0.32em;
+      color: var(--gold-light);
+      text-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.9),
+        0 0 16px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Pulso suave del botón una vez que está listo */
+    .ent-btn.ready {
+      animation: btnBreath 3.2s ease-in-out infinite;
+    }
+
+    @keyframes btnBreath {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-2px) scale(1.025); }
+    }
+
+    /* ─────────────────────────────────────────
        REDUCED MOTION — ACCESIBILIDAD
     ───────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
@@ -1287,15 +1417,31 @@
 
     <!-- Content -->
     <div class="entrance-content">
+
+      <!-- Texto de entrada -->
+      <div class="ent-text" id="ent-text" aria-hidden="true">
+        <p class="ent-eyebrow">· Baby Shower ·</p>
+        <h2 class="ent-name">Mauro<br>Alessandro</h2>
+        <p class="ent-tagline">El Círculo de la Vida comienza…</p>
+        <div class="ent-divider">
+          <span class="ent-divider-line"></span>
+          <span class="ent-divider-dot"></span>
+          <span class="ent-divider-line"></span>
+        </div>
+        <p class="ent-date">Junio 2026</p>
+      </div>
+
       <button id="entrance-btn" class="ent-btn" aria-label="Abrir invitación">
         <!-- Paw icon -->
         <span class="ent-btn-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <ellipse cx="5"    cy="5.5"  rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
-            <ellipse cx="10"   cy="3"    rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
-            <ellipse cx="14.8" cy="3"    rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
-            <ellipse cx="19.4" cy="5.5"  rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
-            <path d="M12 9C8.5 9 5 12 5 15.5C5 18.5 7.5 21 12 21C16.5 21 19 18.5 19 15.5C19 12 15.5 9 12 9Z" fill="#1A0500" opacity="0.8"/>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true">
+            <ellipse cx="5" cy="5.5" rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8" />
+            <ellipse cx="10" cy="3" rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8" />
+            <ellipse cx="14.8" cy="3" rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8" />
+            <ellipse cx="19.4" cy="5.5" rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8" />
+            <path d="M12 9C8.5 9 5 12 5 15.5C5 18.5 7.5 21 12 21C16.5 21 19 18.5 19 15.5C19 12 15.5 9 12 9Z"
+              fill="#1A0500" opacity="0.8" />
           </svg>
         </span>
         <!-- Divisor vertical -->
@@ -1916,11 +2062,12 @@
 
     /* ── DAWN ANIMATION SEQUENCE ── */
     (() => {
-      const entBg = document.getElementById('ent-bg');
-      const night = document.getElementById('ent-night');
-      const dawn = document.getElementById('ent-dawn');
-      const btn = document.getElementById('entrance-btn');
-      const stars = document.querySelectorAll('.star');
+      const entBg  = document.getElementById('ent-bg');
+      const night  = document.getElementById('ent-night');
+      const dawn   = document.getElementById('ent-dawn');
+      const btn    = document.getElementById('entrance-btn');
+      const entTxt = document.getElementById('ent-text');
+      const stars  = document.querySelectorAll('.star');
 
       if (!night || !dawn) return;
 
@@ -1954,14 +2101,12 @@
         const dawnT = clamp(raw / 0.90, 0, 1);
         if (dawn) dawn.style.height = `${lerp(0, 72, easeSoft(dawnT)).toFixed(2)}%`;
 
-        // ── 3. Estrellas: fade escalonado, cada una con su propio ritmo
-        //    Empieza tarde (0.25) y dura hasta 0.75 para que no sean bruscas
+        // ── 3. Estrellas: fade escalonado
         const starPhaseStart = 0.22;
         const starPhaseDur = 0.55;
         const starRaw = clamp((raw - starPhaseStart) / starPhaseDur, 0, 1);
         if (starRaw > 0) {
           stars.forEach((s, i) => {
-            // Offset por índice: estrellas desaparecen de a poco en cascada
             const spread = 0.28;
             const offset = ((i * 37) % stars.length / stars.length) * spread;
             const localT = clamp((starRaw - offset) / (1 - offset * 0.5), 0, 1);
@@ -1971,7 +2116,12 @@
           });
         }
 
-        // ── 4. Botón: float-in desde abajo (pill)
+        // ── 4. Texto de entrada: aparece suave al inicio del amanecer
+        if (raw >= 0.18 && entTxt && !entTxt.classList.contains('visible')) {
+          entTxt.classList.add('visible');
+        }
+
+        // ── 5. Botón: float-in desde abajo (pill)
         if (raw >= 0.52) {
           const btT = clamp((raw - 0.52) / 0.28, 0, 1);
           const btEased = easeSoft(btT);
@@ -2041,7 +2191,7 @@
     function smoothExit() {
       // Reutilizamos los elementos ya cacheados en el scope superior
       const night = document.getElementById('ent-night');
-      const dawn  = document.getElementById('ent-dawn');
+      const dawn = document.getElementById('ent-dawn');
       const content = document.querySelector('.entrance-content');
       const DURATION = 1400;
       let t0 = null;
