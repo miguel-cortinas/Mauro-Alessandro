@@ -1101,88 +1101,126 @@
       will-change: opacity, transform;
     }
 
-    /* Open button */
+    /* ── ENTRANCE BUTTON — Premium Gold Pill ── */
     .ent-btn {
       position: relative;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: rgba(12, 5, 0, 0.72);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(200, 150, 10, 0.55);
-      color: var(--gold-light);
+      gap: 14px;
+      /* Gradiente dorado sólido — no transparente */
+      background: linear-gradient(
+        135deg,
+        #FFD84D 0%,
+        #F09000 42%,
+        #C05800 78%,
+        #7A2800 100%
+      );
+      color: #1A0500;
       font-family: var(--font-title);
-      font-size: clamp(0.62rem, 2.8vw, 0.78rem);
+      font-size: clamp(0.6rem, 2.6vw, 0.76rem);
       font-weight: 900;
-      letter-spacing: 0.38em;
+      letter-spacing: 0.36em;
       text-transform: uppercase;
-      padding: 17px 44px;
+      text-indent: 0.36em; /* compensa letter-spacing en el trailing edge */
+      padding: 18px 40px 18px 32px;
       border-radius: 60px;
+      border: none;
+      outline: none;
       cursor: pointer;
+      white-space: nowrap;
+      /* Ring de borde + sombra profunda */
       box-shadow:
-        0 0 0 1px rgba(200, 150, 10, 0.12),
-        0 8px 32px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 200, 80, 0.12);
+        0 0 0 1.5px rgba(255, 220, 60, 0.7),
+        0 0 0 3.5px rgba(140, 60, 0, 0.35),
+        0 10px 36px rgba(0, 0, 0, 0.65),
+        0 0 40px rgba(200, 110, 0, 0.18),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -2px 5px rgba(80, 20, 0, 0.35);
       overflow: hidden;
       opacity: 0;
-      transition: transform 0.22s var(--ease-out), box-shadow 0.22s, border-color 0.22s, opacity 0.6s ease;
+      transform: translateY(10px);
+      transition:
+        transform 0.32s var(--ease-out),
+        box-shadow 0.26s var(--ease-out),
+        opacity 0.45s ease;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
-    /* Shimmer sweep */
+    /* Ícono de huella */
+    .ent-btn-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      /* Sombra interna para que se vea grabado en el dorado */
+      filter: drop-shadow(0 1px 2px rgba(80, 20, 0, 0.55));
+    }
+
+    /* Separador vertical entre icono y texto */
+    .ent-btn-div {
+      width: 1px;
+      height: 18px;
+      background: linear-gradient(to bottom, transparent, rgba(26, 5, 0, 0.4), transparent);
+      flex-shrink: 0;
+    }
+
+    /* Gloss: brillo superior en la mitad izquierda (look 3D) */
     .ent-btn::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -75%;
-      width: 50%;
+      left: 0;
+      right: 0;
+      height: 50%;
+      border-radius: 60px 60px 0 0;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Shimmer diagonal sutil */
+    .ent-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -90%;
+      width: 55%;
       height: 100%;
-      background: linear-gradient(120deg,
-          transparent 0%,
-          rgba(255, 210, 80, 0.18) 50%,
-          transparent 100%);
-      animation: btnShimmer 3.2s ease-in-out infinite;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.18) 50%,
+        transparent 100%
+      );
+      animation: btnShimmer 4s ease-in-out infinite;
+      pointer-events: none;
     }
 
     @keyframes btnShimmer {
-      0% {
-        left: -75%;
-        opacity: 0;
-      }
-
-      10% {
-        opacity: 1;
-      }
-
-      60% {
-        left: 130%;
-        opacity: 1;
-      }
-
-      61% {
-        opacity: 0;
-      }
-
-      100% {
-        left: 130%;
-        opacity: 0;
-      }
+      0%   { left: -90%; opacity: 0; }
+      10%  { opacity: 1; }
+      55%  { left: 140%; opacity: 1; }
+      56%  { opacity: 0; }
+      100% { left: 140%; opacity: 0; }
     }
 
     .ent-btn:hover {
-      border-color: rgba(200, 150, 10, 0.85);
+      transform: translateY(-3px) scale(1.03);
       box-shadow:
-        0 0 0 1px rgba(200, 150, 10, 0.25),
-        0 12px 40px rgba(0, 0, 0, 0.65),
-        0 0 24px rgba(200, 140, 10, 0.25),
-        inset 0 1px 0 rgba(255, 200, 80, 0.18);
-      transform: translateY(-2px);
+        0 0 0 1.5px rgba(255, 220, 60, 0.9),
+        0 0 0 4px rgba(140, 60, 0, 0.25),
+        0 16px 48px rgba(0, 0, 0, 0.72),
+        0 0 55px rgba(220, 130, 0, 0.32),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 5px rgba(80, 20, 0, 0.35);
     }
 
     .ent-btn:active {
-      transform: scale(0.97);
+      transform: scale(0.97) translateY(0);
+      transition-duration: 0.1s;
     }
 
     /* ─────────────────────────────────────────
@@ -1321,7 +1359,22 @@
 
     <!-- Content -->
     <div class="entrance-content">
-      <button id="entrance-btn" class="ent-btn">INICIAR</button>
+      <button id="entrance-btn" class="ent-btn" aria-label="Abrir invitación">
+        <!-- Paw icon -->
+        <span class="ent-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <ellipse cx="5"    cy="5.5"  rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
+            <ellipse cx="10"   cy="3"    rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
+            <ellipse cx="14.8" cy="3"    rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
+            <ellipse cx="19.4" cy="5.5"  rx="1.8" ry="2.7" fill="#1A0500" opacity="0.8"/>
+            <path d="M12 9C8.5 9 5 12 5 15.5C5 18.5 7.5 21 12 21C16.5 21 19 18.5 19 15.5C19 12 15.5 9 12 9Z" fill="#1A0500" opacity="0.8"/>
+          </svg>
+        </span>
+        <!-- Divisor vertical -->
+        <span class="ent-btn-div"></span>
+        <!-- Label -->
+        INICIAR
+      </button>
     </div>
 
   </div>
@@ -1992,11 +2045,15 @@
           });
         }
 
-        // ── 4. Botón: aparece más temprano para no frustrar al usuario
+        // ── 4. Botón: float-in desde abajo (pill)
         if (raw >= 0.52) {
           const btT = clamp((raw - 0.52) / 0.28, 0, 1);
+          const btEased = easeSoft(btT);
           if (btn) {
-            btn.style.opacity = easeSoft(btT).toFixed(4);
+            btn.style.opacity = btEased.toFixed(4);
+            // Sube suavemente desde translateY(10px) → 0
+            const ty = lerp(10, 0, btEased);
+            btn.style.transform = `translateY(${ty.toFixed(2)}px)`;
             if (btT >= 1) btn.classList.add('ready');
           }
         }
