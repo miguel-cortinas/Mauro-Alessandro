@@ -101,7 +101,7 @@
 
     body.no-scroll {
       overflow: hidden;
-      height: 100vh;
+      min-height: 100vh;
       touch-action: none;
     }
 
@@ -378,9 +378,6 @@
     }
 
 
-
-
-
     /* Scroll caret at the bottom of the hero */
     .hero-caret {
       position: absolute;
@@ -439,10 +436,6 @@
       }
     }
 
-    /* ─────────────────────────────────────────
-       ██  SECTION 2 — INVITACIÓN
-       bg: dark → orange wave top
-    ───────────────────────────────────────── */
     /* ─────────────────────────────────────────
        SECTION BACKGROUNDS WITH IMAGES
     ───────────────────────────────────────── */
@@ -668,7 +661,7 @@
 
     .gifts-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       margin-top: 36px;
     }
@@ -704,14 +697,6 @@
       font-size: clamp(0.6rem, 2.8vw, 0.75rem);
       letter-spacing: 0.1em;
       color: var(--gold-light);
-      line-height: 1.4;
-    }
-
-    .gift-desc {
-      font-size: clamp(0.72rem, 3vw, 0.82rem);
-      color: rgba(240, 217, 181, 0.9);
-      font-style: italic;
-      margin-top: 4px;
       line-height: 1.4;
     }
 
@@ -986,7 +971,7 @@
       z-index: 2;
       background: rgba(0, 0, 0, 0.78);
       pointer-events: none;
-      transition: opacity 0s;
+      transition: none; /* controlled entirely via JS inline style */
     }
 
     /* ── Dawn light: rises from the horizon ── */
@@ -1004,7 +989,6 @@
           rgba(180, 40, 0, 0.50) 45%,
           rgba(100, 20, 0, 0.20) 70%,
           transparent 100%);
-      pointer-events: none;
       transition: height 0s;
       /* controlled via JS */
     }
@@ -1038,68 +1022,6 @@
       align-items: center;
     }
 
-    /* Bottom block: subtitle + button anchored to the lower third */
-    .entrance-bottom {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      padding-top: 6vh;
-      padding-bottom: 0;
-      width: 100%;
-    }
-
-    .ent-eyebrow {
-      font-family: var(--font-title);
-      font-size: clamp(0.55rem, 2.5vw, 0.72rem);
-      letter-spacing: 0.5em;
-      color: var(--gold-bright);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      opacity: 0;
-      text-shadow:
-        0 0 12px rgba(0, 0, 0, 0.95),
-        0 1px 4px rgba(0, 0, 0, 0.9),
-        0 0 28px rgba(255, 200, 30, 0.7);
-    }
-
-    .entrance-title {
-      font-family: var(--font-title);
-      font-size: clamp(1.6rem, 7.5vw, 3rem);
-      background: linear-gradient(170deg,
-          #FFE566 0%,
-          #F5A800 38%,
-          #C95C00 75%,
-          #8B2E00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.05;
-      letter-spacing: 0.04em;
-      text-align: center;
-      filter:
-        drop-shadow(0 3px 0 rgba(40, 6, 0, 0.9)) drop-shadow(0 0 28px rgba(255, 150, 20, 0.55)) drop-shadow(0 0 60px rgba(255, 100, 0, 0.25));
-      opacity: 0;
-      margin-bottom: 0;
-      will-change: opacity, transform;
-    }
-
-    .entrance-subtitle {
-      font-family: var(--font-body);
-      font-size: clamp(0.88rem, 3vw, 1.05rem);
-      color: rgba(255, 238, 190, 0.97);
-      font-style: italic;
-      letter-spacing: 0.06em;
-      opacity: 0;
-      max-width: 300px;
-      line-height: 1.6;
-      padding: 10px 20px;
-      border-radius: 40px;
-      background: rgba(10, 4, 0, 0.42);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      will-change: opacity, transform;
-    }
 
     /* ── ENTRANCE BUTTON — Premium Gold Pill ── */
     .ent-btn {
@@ -1145,6 +1067,12 @@
         opacity 0.45s ease;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+    }
+
+    /* Focus ring accesible (teclado / switch access) */
+    .ent-btn:focus-visible {
+      outline: 2px solid var(--gold-bright);
+      outline-offset: 4px;
     }
 
     /* Ícono de huella */
@@ -1401,7 +1329,6 @@
 
   <div id="prog"></div>
   <canvas id="confetti-canvas"></canvas>
-
 
   <!-- ══════════════════════════════════════════
        HERO — SIMBA IMAGE + SVG SIGN OVERLAY
@@ -1851,7 +1778,6 @@
     /* ── SHARED UTILITIES ── */
     const lerp = (a, b, t) => a + (b - a) * t;
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-    const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     const easeIn = (t) => t * t * t;
     const easeOut = (t) => 1 - Math.pow(1 - t, 3);
     const pad = (n) => String(n).padStart(2, '0');
@@ -2101,8 +2027,7 @@
       entranceBtn.addEventListener('click', () => {
         bgAudio.play().then(() => {
           updateMusicUI(true);
-        }).catch((e) => {
-          console.log('Audio autoplay blocked:', e);
+        }).catch(() => {
           updateMusicUI(false);
         });
 
@@ -2114,15 +2039,16 @@
 
     /* ── SMOOTH EXIT ── */
     function smoothExit() {
+      // Reutilizamos los elementos ya cacheados en el scope superior
       const night = document.getElementById('ent-night');
-      const dawn = document.getElementById('ent-dawn');
+      const dawn  = document.getElementById('ent-dawn');
       const content = document.querySelector('.entrance-content');
       const DURATION = 1400;
-      let startTime = null;
+      let t0 = null;
 
       function tick(ts) {
-        if (!startTime) startTime = ts;
-        const raw = clamp((ts - startTime) / DURATION, 0, 1);
+        if (!t0) t0 = ts;
+        const raw = clamp((ts - t0) / DURATION, 0, 1);
 
         if (content) {
           const cT = clamp(raw / 0.30, 0, 1);
@@ -2144,8 +2070,7 @@
 
         if (raw >= 0.30 && entranceOverlay) {
           const oT = clamp((raw - 0.30) / 0.70, 0, 1);
-          const opacity = (1 - easeOut(oT)).toFixed(3);
-          entranceOverlay.style.opacity = opacity;
+          entranceOverlay.style.opacity = (1 - easeOut(oT)).toFixed(3);
         }
 
         if (raw < 1) {
